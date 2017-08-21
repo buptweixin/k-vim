@@ -2,6 +2,30 @@ k-vim
 =======================
 
 ## 快捷键合集
+### cpp
+1. 头文件和源文件跳转
+    ```
+    Plug 'derekwyatt/vim-fswitch'
+    nmap <silent> <Leader>sh :FSHere<cr>
+
+2. 自动生成ctags
+    建立` ~/.indexer_files`文件，加入下面的信息:
+    ```
+    --------------- ~/.indexer_files ---------------
+    [foo]
+    /data/workplace/foo/src/
+    [bar]
+    /data/workplace/bar/src/
+    `foo` 为工程名，下面的为工程路径
+    ```
+3. 自动实现接口
+    ```
+    " ====
+    " 由接口快速生成实现框架
+    " 写好h文件后在cpp文件中引入头文件，然后使用<leader>PP
+    " ====
+    Plug 'derekwyatt/vim-protodef'
+    ```
 ### 通用配置
 1. syntastic
     语法检查，高亮错误位置，k-vim中使用<leader>s打开错误列表，<leader>sn到下一个错误, <leader>sp到上一个错误

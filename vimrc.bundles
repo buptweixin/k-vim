@@ -111,6 +111,11 @@ Plug 'bronson/vim-trailing-whitespace'
 " gaip=`=`第一次出现位置为依据 gaip2=`=`第二次出现位置为依据 gaip*= 所有等号都
 " 对齐
 Plug 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " quick movement
 " easymotion
@@ -210,6 +215,33 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
+
+if count(g:bundle_groups, 'cpp')
+    Plug 'derekwyatt/vim-fswitch'
+    nmap <silent> <Leader>sh :FSHere<cr>
+
+    " ====
+    " 自动生成和更新ctags
+    " ====
+    Plug 'vim-scripts/DfrankUtil'
+    Plug 'vim-scripts/vimprj'
+    Plug 'vim-scripts/indexer.tar.gz'
+    " 设置插件 indexer 调用 ctags 的参数
+    " 默认 --c++-kinds=+p+l，重新设置为 --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v
+    " 默认 --fields=+iaS 不满足 YCM 要求，需改为 --fields=+iaSl
+    let g:indexer_ctagsCommandLineOptions="--c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+iaSl --extra=+q"
+
+    " ====
+    " 由接口快速生成实现框架
+    " 写好h文件后在cpp文件中引入头文件，然后使用<leader>PP
+    " ====
+    Plug 'derekwyatt/vim-protodef'
+    " 设置 pullproto.pl 脚本路径
+    let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
+    " 成员函数的实现顺序与声明顺序一致
+    let g:disable_protodef_sorting=1
+    nmap <buffer> <silent> <leader>PP
+endif
 
 if count(g:bundle_groups, 'tmux')
     " tmux
@@ -695,12 +727,12 @@ let g:ctrlsf_mapping = {
 " :Gdiff  :Gstatus :Gvsplit
 nnoremap <leader>ge :Gdiff<CR>
 " not ready to open
-<leader>gb maps to :Gblame<CR>
+nnoremap <leader>gb :Gblame<CR>
 " <leader>gs maps to :Gstatus<CR>
 " <leader>gd maps to :Gdiff<CR>  和现有冲突
-<leader>gl maps to :Glog<CR>
-<leader>gc maps to :Gcommit<CR>
-" <leader>gp maps to :Git push<CR>
+nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gp :Git push<CR>
 " }}}
 
 " gitgutter {{{

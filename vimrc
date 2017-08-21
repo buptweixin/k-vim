@@ -46,7 +46,21 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
 
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" 设置环境保存项
+" set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+" 保存 undo 历史
+" set undodir=~/.undo_history/
+" set undofile
+" 保存快捷键
+" map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
+" 恢复快捷键
+" map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
 
 " history存储容量
 set history=2000

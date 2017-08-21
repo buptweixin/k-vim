@@ -1,6 +1,102 @@
 k-vim
 =======================
 
+## 快捷键合集
+### 通用配置
+1. syntastic
+    语法检查，高亮错误位置，k-vim中使用<leader>s打开错误列表，<leader>sn到下一个错误, <leader>sp到上一个错误
+
+2. 显示buff标签
+    命令模式下:bn :bp切换到上一个/下一个buffer, :b`num`跳转到指定编号的buffer
+
+3. 自动检查乱码文件的编码
+    使用方法:
+     - FencAutoDetect
+       自动识别文件编码
+     - FencView
+       选择指定编码reload文件
+    Plug 'adah1972/fencview'
+
+4. Dash.vim
+    " Dash.vim
+    " :Dash 'keyword' 快速打开Dash并查找api
+    " 比如`:Dash cpp:unordered_map`
+    Plug 'rizzatti/dash.vim'
+
+
+5. asyncrun.vim
+    " 在后台异步执行， 通过: `cw` 进入quickfix窗口查看结果
+    " 异步git push：AsyncRun git push origin master异步编译：AsyncRun gcc % -o %<异步更新 tag：AsyncRun ctags -R --fields=+S .异步 grep：AsyncRun grep -R <cword> .
+    Plug 'skywind3000/asyncrun.vim'
+
+6.  一键格式化代码
+    Plug 'Chiel92/vim-autoformat'
+    nnoremap <F7> :Autoformat<CR>
+
+7. 注释
+   quick edit
+   快速注释
+   <leader>cc 加注释
+   <leader>cu 解开注释
+   <leader>c<space>  加上/解开注释, 智能判断
+   <leader>cy   先复制, 再注解(p可以进行黏贴)
+    Plug 'scrooloose/nerdcommenter'
+
+8. 快速对齐
+    ```
+    " easyalign
+    " 快速赋值语句对齐
+    " 首先在visual模式下选中文本，然后输入ga接上对其依据，比如`=`
+    " vipga=选中段落对齐
+    " gaip=`=`第一次出现位置为依据 gaip2=`=`第二次出现位置为依据 gaip*= 所有等号都
+    " 对齐
+    Plug 'junegunn/vim-easy-align'
+    ```
+9. 快速移动
+    ```
+    " quick movement
+    " easymotion
+    "更高效的移动 [,, + w/fx/h/j/k/l]
+    Plug 'Lokaltog/vim-easymotion'
+    ```
+
+10. 更高效的行内移动, f/F/t/T, 才触发
+    " quickscope
+    Plug 'unblevable/quick-scope'
+
+11. 标记
+    ```
+    " signature
+    " 显示marks - 方便自己进行标记和跳转
+    " m[a-zA-Z] add mark
+    " '[a-zA-Z] go to mark
+    " m<Space>  del all marks
+    " m/        list all marks
+    " m.        add new mark just follow previous mark
+    Plug 'kshenoy/vim-signature'
+    ```
+12. 文件搜索
+    ```
+    " quick locate file or function
+    " 文件搜索
+    " change to https://github.com/ctrlpvim/ctrlp.vim
+    " ctrlp ctrlpfunky
+    " <leader>p 搜索当前文件及其子文件夹下的文件
+    " <leader>f 搜索最近打开的文件
+    " <leader>fu 在当前文件的函数列表里搜索
+    " <leader>fU 搜索当前光标下单词对应的函数
+    Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+    ```
+13. 查找单词
+    " ctrlsf
+    "  `\` 搜索当前光标下的单词
+    " 类似sublimetext的搜索
+    " In CtrlSF window:
+    " 回车/o, 打开
+    " t       在tab中打开(建议)
+    " T - Lkie t but focus CtrlSF window instead of opened new tab.
+    " q - Quit CtrlSF window.
+    Plug 'dyng/ctrlsf.vim'
 
 > VERSION: 9.2
 

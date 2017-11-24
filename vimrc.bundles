@@ -217,6 +217,12 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 
 if count(g:bundle_groups, 'cpp')
+    " Add maktaba and bazel to the runtimepath.
+    " " (The latter must be installed before it can be used.)
+    Plug 'google/vim-maktaba'
+    Plug 'bazelbuild/vim-bazel'
+    Plug 'rdnetto/YCM-Generator'
+
     Plug 'derekwyatt/vim-fswitch'
     nmap <silent> <Leader>sh :FSHere<cr>
 
@@ -506,17 +512,24 @@ endif
 let g:ycm_key_list_select_completion = ['<Down>']
 "let g:ycm_key_list_previous_completion=['<c-p>']
 let g:ycm_key_list_previous_completion = ['<Up>']
+" load ycm conf by default
+let g:ycm_confirm_extra_conf=0
 let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
 let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
 let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
 let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+"" start completion from the first character
+let g:ycm_min_num_of_chars_for_completion=1
+"" don't cache completion items
+let g:ycm_cache_omnifunc=0
+"" turn on tag completion
 let g:ycm_collect_identifiers_from_tags_files = 1
 " 开启语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 " 回车作为选中
 let g:ycm_key_list_stop_completion = ['<CR>']
 
-"let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
+" let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
 
 " 跳转到定义处, 分屏打开
 let g:ycm_goto_buffer_command = 'horizontal-split'

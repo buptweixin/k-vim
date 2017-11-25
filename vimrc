@@ -20,10 +20,24 @@
 "==========================================
 
 "==========================================
+" tmux
+"==========================================
+" if exists('$ITERM_PROFILE')
+  " if exists('$TMUX')
+    " let &amp;t_SI = "<Esc>[3 q"
+    " let &amp;t_EI = "<Esc>[0 q"
+  " else
+    " let &amp;t_SI = "<Esc>]50;CursorShape=1x7"
+    " let &amp;t_EI = "<Esc>]50;CursorShape=0x7"
+  " endif
+" end
+
+"==========================================
 " Initial Plugin 加载插件
 "==========================================
 
 " 修改leader键
+
 let mapleader = ','
 let g:mapleader = ','
 
@@ -45,7 +59,19 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
+"
+" 设置环境保存项
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+" 保存 undo 历史
+set undodir=~/.undo_history/
+set undofile
+" 保存快捷键
+map <leader>ss :mksession! my.vim<cr> | :wviminfo! my.viminfo<cr>
+" 恢复快捷键
+map <leader>rs :source my.vim<cr> | :rviminfo my.viminfo<cr>
 
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " history存储容量
 set history=2000
@@ -357,7 +383,7 @@ function! HideNumber()
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
 " F3 显示可打印字符开关
-nnoremap <F3> :set list! list?<CR>
+"nnoremap <F3> :set list! list?<CR>
 " F4 换行开关
 nnoremap <F4> :set wrap! wrap?<CR>
 
@@ -665,7 +691,9 @@ endif
 set background=dark
 set t_Co=256
 
-colorscheme solarized
+" colorscheme solarized
+colorscheme molokai
+let g:molokai_original = 1
 " colorscheme molokai
 " colorscheme desert
 
@@ -685,6 +713,13 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
+let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
+let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 
-
-
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif

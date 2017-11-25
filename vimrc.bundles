@@ -27,10 +27,38 @@ endif
 
 call plug#begin('~/.vim/bundle')
 
-" 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
+" tmux
+Plug 'christoomey/vim-tmux-navigator'
 
+" buff标签
+Plug 'fholgado/minibufexpl.vim'
+let g:miniBufExplMapCTabSwitchBufs = 1
+
+" 自动检查乱码文件的编码
+Plug 'adah1972/fencview'
+
+" css颜色显示
+" Plug 'ap/vim-css-color'
+
+" 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
+"
+"
+" Dash.vim
+Plug 'rizzatti/dash.vim'
+
+" asyncrun.vim
+Plug 'skywind3000/asyncrun.vim'
+
+" 一键格式化代码
+Plug 'Chiel92/vim-autoformat'
+nnoremap <F3> :Autoformat<CR>
 " syntastic
 Plug 'scrooloose/syntastic'
+
+
+
+"errormarker
+Plug 'mh21/errormarker.vim'
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -565,14 +593,14 @@ call plug#end()
 
 " fugitive {{{
     " :Gdiff  :Gstatus :Gvsplit
-    nnoremap <leader>ge :Gdiff<CR>
+    nnoremap <leader>ge: Gdiff<CR>
     " not ready to open
-    " <leader>gb maps to :Gblame<CR>
-    " <leader>gs maps to :Gstatus<CR>
+    <leader>gb maps to:  Gblame<CR>
+    " <leader>gs maps to:  Gstatus<CR>
     " <leader>gd maps to :Gdiff<CR>  和现有冲突
-    " <leader>gl maps to :Glog<CR>
-    " <leader>gc maps to :Gcommit<CR>
-    " <leader>gp maps to :Git push<CR>
+    <leader>gl maps to:  Glog<CR>
+    <leader>gc maps to:  gcommit<cr>
+    " <leader>gh maps to:  git push<cr>
 " }}}
 
 " gitgutter {{{

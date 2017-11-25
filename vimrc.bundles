@@ -27,7 +27,24 @@ endif
 
 call plug#begin('~/.vim/bundle')
 
+" tmux
+Plug 'christoomey/vim-tmux-navigator'
+
+" buff标签
+Plug 'fholgado/minibufexpl.vim'
+let g:miniBufExplMapCTabSwitchBufs = 1
+
+" 自动检查乱码文件的编码
+Plug 'adah1972/fencview'
+
+" css颜色显示
+" Plug 'ap/vim-css-color'
+
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
+"
+"
+" Dash.vim
+Plug 'rizzatti/dash.vim'
 
 " ===============================================================
 "                       通用配置
@@ -41,6 +58,9 @@ else
     Plug 'w0rp/ale'
 endif
 
+
+"errormarker
+Plug 'mh21/errormarker.vim'
 " 显示buff标签
 " 命令模式下:bn :bp切换到上一个/下一个buffer, :b`num`跳转到指定编号的buffer
 Plug 'fholgado/minibufexpl.vim'
@@ -70,8 +90,6 @@ Plug 'skywind3000/asyncrun.vim'
 " 一键格式化代码
 Plug 'Chiel92/vim-autoformat'
 nnoremap <F7> :Autoformat<CR>
-
-
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -217,6 +235,12 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 
 if count(g:bundle_groups, 'cpp')
+    " Add maktaba and bazel to the runtimepath.
+    " " (The latter must be installed before it can be used.)
+    Plug 'google/vim-maktaba'
+    Plug 'bazelbuild/vim-bazel'
+    Plug 'rdnetto/YCM-Generator'
+
     Plug 'derekwyatt/vim-fswitch'
     nmap <silent> <Leader>sh :FSHere<cr>
 
@@ -506,17 +530,24 @@ endif
 let g:ycm_key_list_select_completion = ['<Down>']
 "let g:ycm_key_list_previous_completion=['<c-p>']
 let g:ycm_key_list_previous_completion = ['<Up>']
+" load ycm conf by default
+let g:ycm_confirm_extra_conf=0
 let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
 let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
 let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
 let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+"" start completion from the first character
+let g:ycm_min_num_of_chars_for_completion=1
+"" don't cache completion items
+let g:ycm_cache_omnifunc=0
+"" turn on tag completion
 let g:ycm_collect_identifiers_from_tags_files = 1
 " 开启语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 " 回车作为选中
 let g:ycm_key_list_stop_completion = ['<CR>']
 
-"let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
+" let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
 
 " 跳转到定义处, 分屏打开
 let g:ycm_goto_buffer_command = 'horizontal-split'
@@ -692,6 +723,7 @@ let g:ctrlp_follow_symlinks=1
 " ctrlpfunky
 " ctrlp插件1 - 不用ctag进行函数快速跳转
 nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <silent><Leader>p :CtrlSpace O<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_funky_syntax_highlight = 1
@@ -846,6 +878,9 @@ let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
 if executable("ag")
     let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+let g:CtrlSpaceSaveWorkspaceOnExit = 1
 let g:airline_exclude_preview = 1
 hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
 hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE

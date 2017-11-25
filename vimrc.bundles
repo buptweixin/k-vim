@@ -223,9 +223,9 @@ if count(g:bundle_groups, 'cpp')
     " ====
     " 自动生成和更新ctags
     " ====
-    Plug 'vim-scripts/DfrankUtil'
-    Plug 'vim-scripts/vimprj'
-    Plug 'vim-scripts/indexer.tar.gz'
+    " Plug 'vim-scripts/DfrankUtil'
+    " Plug 'vim-scripts/vimprj'
+    " Plug 'vim-scripts/indexer.tar.gz'
     " 设置插件 indexer 调用 ctags 的参数
     " 默认 --c++-kinds=+p+l，重新设置为 --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v
     " 默认 --fields=+iaS 不满足 YCM 要求，需改为 --fields=+iaSl
@@ -235,12 +235,12 @@ if count(g:bundle_groups, 'cpp')
     " 由接口快速生成实现框架
     " 写好h文件后在cpp文件中引入头文件，然后使用<leader>PP
     " ====
-    Plug 'derekwyatt/vim-protodef'
+    " Plug 'derekwyatt/vim-protodef'
     " 设置 pullproto.pl 脚本路径
-    let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
+    " let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
     " 成员函数的实现顺序与声明顺序一致
-    let g:disable_protodef_sorting=1
-    nmap <buffer> <silent> <leader>PP
+    " let g:disable_protodef_sorting=1
+    " nmap <buffer> <silent> <leader>PP
 endif
 
 if count(g:bundle_groups, 'tmux')
@@ -762,7 +762,7 @@ let g:airline_right_alt_sep = '❮'
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 " 是否打开tabline
-" let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 " }}}
 
 
@@ -839,6 +839,13 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 
 " Vim Workspace Controller
 " ctrlspace {{{
+" if has("gui_running")
+    " Settings for MacVim and Inconsolata font
+let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
+" endif
+if executable("ag")
+    let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
 let g:airline_exclude_preview = 1
 hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
 hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE

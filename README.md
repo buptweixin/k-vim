@@ -1,17 +1,132 @@
 k-vim
 =======================
 
-**Note**: 9.1版本的文档/wiki等, 处理中(原先的常见问题FAQ/插件演示和使用/自定义快捷键等)
+## 快捷键合集
+### cpp
+1. 头文件和源文件跳转
+    ```
+    Plug 'derekwyatt/vim-fswitch'
+    nmap <silent> <Leader>sh :FSHere<cr>
 
-当前进度30%
+2. 自动生成ctags
+    建立` ~/.indexer_files`文件，加入下面的信息:
+    ```
+    --------------- ~/.indexer_files ---------------
+    [foo]
+    /data/workplace/foo/src/
+    [bar]
+    /data/workplace/bar/src/
+    `foo` 为工程名，下面的为工程路径
+    ```
+3. 自动实现接口
+    ```
+    " ====
+    " 由接口快速生成实现框架
+    " 写好h文件后在cpp文件中引入头文件，然后使用<leader>PP
+    " ====
+    Plug 'derekwyatt/vim-protodef'
+    ```
+### 通用配置
+1. syntastic
+    语法检查，高亮错误位置，k-vim中使用<leader>s打开错误列表，<leader>sn到下一个错误, <leader>sp到上一个错误
 
-----------------
+2. 显示buff标签
+    命令模式下:bn :bp切换到上一个/下一个buffer, :b`num`跳转到指定编号的buffer
 
-> VERSION: 9.1
+3. 自动检查乱码文件的编码
+    使用方法:
+     - FencAutoDetect
+       自动识别文件编码
+     - FencView
+       选择指定编码reload文件
+    Plug 'adah1972/fencview'
 
-> LAST_UPDATE_TIME: 2015-12-15
+4. Dash.vim
+    " Dash.vim
+    " :Dash 'keyword' 快速打开Dash并查找api
+    " 比如`:Dash cpp:unordered_map`
+    Plug 'rizzatti/dash.vim'
 
-> 本次更新: 大版本更新, 众多细节优化
+
+5. asyncrun.vim
+    " 在后台异步执行， 通过: `cw` 进入quickfix窗口查看结果
+    " 异步git push：AsyncRun git push origin master异步编译：AsyncRun gcc % -o %<异步更新 tag：AsyncRun ctags -R --fields=+S .异步 grep：AsyncRun grep -R <cword> .
+    Plug 'skywind3000/asyncrun.vim'
+
+6.  一键格式化代码
+    Plug 'Chiel92/vim-autoformat'
+    nnoremap <F7> :Autoformat<CR>
+
+7. 注释
+   quick edit
+   快速注释
+   <leader>cc 加注释
+   <leader>cu 解开注释
+   <leader>c<space>  加上/解开注释, 智能判断
+   <leader>cy   先复制, 再注解(p可以进行黏贴)
+    Plug 'scrooloose/nerdcommenter'
+
+8. 快速对齐
+    ```
+    " easyalign
+    " 快速赋值语句对齐
+    " 首先在visual模式下选中文本，然后输入ga接上对其依据，比如`=`
+    " vipga=选中段落对齐
+    " gaip=`=`第一次出现位置为依据 gaip2=`=`第二次出现位置为依据 gaip*= 所有等号都
+    " 对齐
+    Plug 'junegunn/vim-easy-align'
+    ```
+9. 快速移动
+    ```
+    " quick movement
+    " easymotion
+    "更高效的移动 [,, + w/fx/h/j/k/l]
+    Plug 'Lokaltog/vim-easymotion'
+    ```
+
+10. 更高效的行内移动, f/F/t/T, 才触发
+    " quickscope
+    Plug 'unblevable/quick-scope'
+
+11. 标记
+    ```
+    " signature
+    " 显示marks - 方便自己进行标记和跳转
+    " m[a-zA-Z] add mark
+    " '[a-zA-Z] go to mark
+    " m<Space>  del all marks
+    " m/        list all marks
+    " m.        add new mark just follow previous mark
+    Plug 'kshenoy/vim-signature'
+    ```
+12. 文件搜索
+    ```
+    " quick locate file or function
+    " 文件搜索
+    " change to https://github.com/ctrlpvim/ctrlp.vim
+    " ctrlp ctrlpfunky
+    " <leader>p 搜索当前文件及其子文件夹下的文件
+    " <leader>f 搜索最近打开的文件
+    " <leader>fu 在当前文件的函数列表里搜索
+    " <leader>fU 搜索当前光标下单词对应的函数
+    Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+    ```
+13. 查找单词
+    " ctrlsf
+    "  `\` 搜索当前光标下的单词
+    " 类似sublimetext的搜索
+    " In CtrlSF window:
+    " 回车/o, 打开
+    " t       在tab中打开(建议)
+    " T - Lkie t but focus CtrlSF window instead of opened new tab.
+    " q - Quit CtrlSF window.
+    Plug 'dyng/ctrlsf.vim'
+
+> VERSION: 9.2
+
+> LAST_UPDATE_TIME: 2017-07-29
+
+> 本次更新: 小版本更新, 支持vim8异步语法检查
 
 详细 [更新日志](https://github.com/wklken/k-vim/wiki/UPDATE_LOG)
 
@@ -76,9 +191,7 @@ brew install the_silver_searcher
 ##### 2.2 使用Python
 
 ```
-sudo pip install pyflakes
-sudo pip install pylint
-sudo pip install pep8
+sudo pip install flake8 yapf
 ```
 
 ##### 2.3 如果使用Javascript(不需要的跳过)
@@ -91,11 +204,13 @@ sudo pip install pep8
 sudo apt-get install nodejs npm
 sudo npm install -g jslint
 sudo npm install jshint -g
+sudo npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
 
 # mac
 brew install node
 npm install jshint -g
 npm install jslint -g
+npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
 ```
 
 
@@ -256,6 +371,7 @@ ctrl+t 新建一个tab
 Y         =y$   复制到行尾
 U         =Ctrl-r
 ,sa       select all,全选
+gv        选中并高亮最后一次插入的内容
 ,v        选中段落
 kj        代替<Esc>，不用到角落去按esc了
 
@@ -287,32 +403,18 @@ ctrl+n    相对/绝对行号切换
 
 ### UPDATE_LOG
 
-version 9.1
+version 9.2
 
 ```
 插件部分:
-1. 使用 'junegunn/vim-plug' 替代 'VundleVim/Vundle.vim' 来管理插件, 安装/更新速度更快
-2. 支持自定义插件集合, 可以配置自己需要安装的插件
-3. 去除tomorrow主题插件 'chriskempson/vim-tomorrow-theme'
-4. Javascript插件, 使用 'othree/javascript-libraries-syntax.vim' 替代 'nono/jquery.vim',
-5. Javascript插件, 使用 'othree/yajs.vim' 替代 'jelera/vim-javascript-syntax'
-6. 去除 minibufferexpl 所有配置(ctrlspace替代)
-7. 去除 taglist 所有配置(tagbar和ctrl-funky替代)
-8. Python插件, 增加 'hynek/vim-python-pep8-indent'
-9. Python插件, 去除 'kevinw/pyflakes-vim'
-10. Go插件, 使用 'fatih/vim-go' 替代 'Blackrush/vim-gocode'
-11. 快速移动, 增加插件 'unblevable/quick-scope', 按f/F/t/T时触发, 行内快速移动, 与 easymotion 互补
-12. (bundle_groups配置了tmux)tmux插件 'christoomey/vim-tmux-navigator'
-13. (bundle_groups配置了json)json插件 'elzr/vim-json'
+1. 增加 w0rp/ale 异步语法检查插件, 用户vim版本为8.0时自动启用. 非8时, 启用默认scrooloose/syntastic, 两套插件快捷键一致
+2. 切换使用flake8作为python风格检查(pip install pep8)
+3. 启用yapf作为python代码格式化(pip install yapf)
+4. 启用eslint作为javascript代码检查
+5. YCM 设置回车选中不再弹补全框
 
 细节:
-1. 增加 leader+w 保存文件
-2. YCM 开启语法关键字补全 'let g:ycm_seed_identifiers_with_syntax=1'
-3. 插件 'terryma/vim-expand-region', 增加自定义每次加减的区域配置
-4. 解决在insert mode粘贴代码缩进错乱问题(以前需要:set paste . 即k-vim中F5快捷键, 现在不需要了)
-
-其他:
-1. UPDATE_LOG文件迁移到github wiki
+1. 新增快捷键 gv 选中并高亮最后一次插入的内容
 ```
 
 ### Contributors
@@ -351,10 +453,10 @@ The End!
 
 wklken (凌岳/pythoner/vim党预备党员)
 
-Email: wklken@yeah.net
-
 Github: https://github.com/wklken
 
 Blog: [http://www.wklken.me](http://www.wklken.me)
 
 2013-06-11 于深圳
+
+

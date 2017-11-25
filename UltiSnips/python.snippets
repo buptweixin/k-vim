@@ -132,10 +132,10 @@ endsnippet
 
 snippet doc "docstring"
 """
-@Author: ${1:`wklken`}
-@Email: ${2:`wklken@yeah.net`}
-@Date: ${3}
-@Desc: ${4}
+@Author: weixin
+@Email: weixin@megvii.com
+@Date: `!v strftime("%Y-%m-%d %H:%M:%S")`
+@Desc: ${1}
 """
 endsnippet
 
@@ -173,4 +173,15 @@ snippet dk "api doc"
         code:
         code:
 
+endsnippet
+
+snippet bcomment "block comment"
+#==========================================================================
+#                         ${1}
+#==========================================================================
+endsnippet
+
+snippet pf "print debug message into ./mylog.txt file"
+with open("./myDebugLog.txt", "a") as f:
+	f.write("debug msg: {}".format(${1}))
 endsnippet

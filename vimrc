@@ -62,14 +62,14 @@ filetype plugin indent on
 "==========================================
 "
 " 设置环境保存项
-set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+" set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
 " 保存 undo 历史
-set undodir=~/.undo_history/
-set undofile
+" set undodir=~/.undo_history/
+" set undofile
 " 保存快捷键
-map <leader>ss :mksession! my.vim<cr> | :wviminfo! my.viminfo<cr>
+" map <leader>ss :mksession! my.vim<cr> | :wviminfo! my.viminfo<cr>
 " 恢复快捷键
-map <leader>rs :source my.vim<cr> | :rviminfo my.viminfo<cr>
+" map <leader>rs :source my.vim<cr> | :rviminfo my.viminfo<cr>
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -588,9 +588,9 @@ nnoremap U <C-r>
 " nmap <silent> <leader>ev :e $MYVIMRC<CR>
 " nmap <silent> <leader>sv :so $MYVIMRC<CR>
 " edit vimrc/zshrc and load vimrc bindings
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>ez :vsp ~/.zshrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+" nnoremap <leader>ev :vsp $MYVIMRC<CR>
+" nnoremap <leader>ez :vsp ~/.zshrc<CR>
+" nnoremap <leader>sv :source $MYVIMRC<CR>
 
 "==========================================
 " FileType Settings  文件类型设置

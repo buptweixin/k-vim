@@ -60,6 +60,7 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
+<<<<<<< HEAD
 "
 " 设置环境保存项
 " set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
@@ -70,6 +71,8 @@ filetype plugin indent on
 " map <leader>ss :mksession! my.vim<cr> | :wviminfo! my.viminfo<cr>
 " 恢复快捷键
 " map <leader>rs :source my.vim<cr> | :rviminfo my.viminfo<cr>
+=======
+>>>>>>> ffcf5a33c0ad95665bd43646644affa63a4dbef5
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -129,9 +132,9 @@ set t_ti= t_te=
 
 
 " 鼠标暂不启用, 键盘党....
-" set mouse-=a
+set mouse-=a
 " 启用鼠标
-set mouse=a
+" set mouse=a
 " Hide the mouse cursor while typing
 " set mousehide
 
@@ -684,8 +687,8 @@ endif
 set background=dark
 set t_Co=256
 
-colorscheme solarized
 " colorscheme molokai
+colorscheme solarized
 let g:molokai_original = 1
 
 

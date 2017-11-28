@@ -60,19 +60,6 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
-<<<<<<< HEAD
-"
-" 设置环境保存项
-" set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-" 保存 undo 历史
-" set undodir=~/.undo_history/
-" set undofile
-" 保存快捷键
-" map <leader>ss :mksession! my.vim<cr> | :wviminfo! my.viminfo<cr>
-" 恢复快捷键
-" map <leader>rs :source my.vim<cr> | :rviminfo my.viminfo<cr>
-=======
->>>>>>> ffcf5a33c0ad95665bd43646644affa63a4dbef5
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)

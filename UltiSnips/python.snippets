@@ -61,7 +61,7 @@ print '${1}'
 endsnippet
 
 snippet prt "print trace"
-print("TRACK ================= {}".format(${1}))
+print("TRACK ================= {}, {}".format(${1}, ${2}))
 endsnippet
 
 snippet rep "repr"
@@ -132,10 +132,10 @@ endsnippet
 
 snippet doc "docstring"
 """
-@Author: ${1:`wklken`}
-@Email: ${2:`wklken@yeah.net`}
-@Date: ${3}
-@Desc: ${4}
+@Author: weixin
+@Email: weixin@megvii.com
+@Date: `!v strftime("%Y-%m-%d %H:%M:%S")`
+@Desc: ${1}
 """
 endsnippet
 
@@ -173,4 +173,33 @@ snippet dk "api doc"
         code:
         code:
 
+endsnippet
+
+snippet bcomment "block comment"
+#==========================================================================
+#                         ${1}
+#==========================================================================
+endsnippet
+
+snippet pf "print debug message into ./mylog.txt file"
+with open("./myDebugLog.txt", "a") as f:
+	f.write("debug msg: {}".format(${1}))
+endsnippet
+
+snippet face_align "face align augument"
+root = '/unsullied/sharefs/_research_facelm/Isilon-datashare'
+mean_face_file = os.path.join(root, 'baseimg', 'extra', 'mean_face_81.pkl')
+mean_face = misc.load_pickle(mean_face_file)
+aug = augment.AugmentBase(
+    mean_face=mean_face, image_shape=(112, 112),
+       transforms_post=transforms.Compose([
+       transforms.ConvertToGray(),
+       transforms.HWC2CHW(),
+       transforms.NormalizeLandmark(image_shape=(112, 112)),
+     ])
+)
+
+img_raw, lm_raw, _ = misc.unpack_lm(dataid, is_color=True)
+img_out, lm_out, _ = aug(img_raw, lm_raw, lm_raw.copy())
+img_out2 = aug2(img_raw, lm_raw, lm_raw.copy())[0]
 endsnippet

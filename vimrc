@@ -21,10 +21,24 @@
 "==========================================
 
 "==========================================
+" tmux
+"==========================================
+" if exists('$ITERM_PROFILE')
+  " if exists('$TMUX')
+    " let &amp;t_SI = "<Esc>[3 q"
+    " let &amp;t_EI = "<Esc>[0 q"
+  " else
+    " let &amp;t_SI = "<Esc>]50;CursorShape=1x7"
+    " let &amp;t_EI = "<Esc>]50;CursorShape=0x7"
+  " endif
+" end
+
+"==========================================
 " Initial Plugin 加载插件
 "==========================================
 
 " 修改leader键
+
 let mapleader = ','
 let g:mapleader = ','
 
@@ -46,21 +60,9 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
-" Start interactive EasyAlign in visual mode (e.g. vipga)
+
 xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-" 设置环境保存项
-" set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-" 保存 undo 历史
-" set undodir=~/.undo_history/
-" set undofile
-" 保存快捷键
-" map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
-" 恢复快捷键
-" map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
 
 " history存储容量
 set history=2000
@@ -238,6 +240,7 @@ set hidden
 set wildmode=list:longest
 set ttyfast
 
+
 " 00x增减数字时使用十进制
 set nrformats=
 
@@ -340,10 +343,10 @@ endif
 " 主要按键重定义
 
 " 关闭方向键, 强迫自己用 hjkl
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+" map <Left> <Nop>
+" map <Right> <Nop>
+" map <Up> <Nop>
+" map <Down> <Nop>
 
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
@@ -372,7 +375,7 @@ function! HideNumber()
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
 " F3 显示可打印字符开关
-nnoremap <F3> :set list! list?<CR>
+"nnoremap <F3> :set list! list?<CR>
 " F4 换行开关
 nnoremap <F4> :set wrap! wrap?<CR>
 
@@ -575,9 +578,9 @@ nnoremap U <C-r>
 " nmap <silent> <leader>ev :e $MYVIMRC<CR>
 " nmap <silent> <leader>sv :so $MYVIMRC<CR>
 " edit vimrc/zshrc and load vimrc bindings
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>ez :vsp ~/.zshrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+" nnoremap <leader>ev :vsp $MYVIMRC<CR>
+" nnoremap <leader>ez :vsp ~/.zshrc<CR>
+" nnoremap <leader>sv :source $MYVIMRC<CR>
 
 "==========================================
 " FileType Settings  文件类型设置
@@ -671,8 +674,9 @@ endif
 set background=dark
 set t_Co=256
 
-" colorscheme solarized
-colorscheme molokai
+" colorscheme molokai
+colorscheme solarized
+let g:molokai_original = 1
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致

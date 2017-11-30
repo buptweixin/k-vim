@@ -19,8 +19,8 @@ if [ -z "$RLAUNCH_WORKER" ] || [ -z "$rrun_executor_uri"]; then
     var2="/";
     cat /proc/mounts | while read line
     do
-        f1=`echo $line | cut -d \  -f 1`
-        f2=`echo $line | cut -d \  -f 2`
+        f1=\`echo $line | cut -d \  -f 1\`
+        f2=\`echo $line | cut -d \  -f 2\`
 
         if [ "$f1" = "$var1" -a "$f2" = "$var2" ]; then
             echo "[INFO] You are in the VM now, command: \n$command1"

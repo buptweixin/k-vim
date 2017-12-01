@@ -1,6 +1,27 @@
 k-vim
 =======================
 
+# update log
+## 2017.12.01
+### 使用异步补全工具Completor替代YouCompleteMe
+1. Requirements
+    - vim8 compiled with python or python3
+2. 自动补全列表
+    - 文件名[by default]
+    - Ultisnips[by default if installed] or neosnippet[completor-neosnippet should has been installed]
+    - python
+        `pip install jedi`
+        `let g:completor_python_binary = '/path/to/python/with/jedi/installed'`
+    - cpp [clang should has been installed]
+        `let g:completor_clang_binary = '/path/to/clang'`
+        `let g:clang_library_path = '/path/to/libclang'`
+        每个工程目录下可以新建一个`.clang_complete`文件， 内部指定头文件路径，c++标准等, 下面是一个例子
+        ```cpp
+        -std=c++11
+        -I/Users/maralla/Workspace/src/dji-sdk/Onboard-SDK/lib/inc
+        -I/Users/maralla/Workspace/src/dji-sdk/Onboard-SDK/sample/Linux/inc
+        ```
+
 ## 快捷键合集
 ### cpp
 1. 头文件和源文件跳转

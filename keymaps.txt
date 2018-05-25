@@ -1,0 +1,83 @@
+# 开启绝对和相对行号显示
+nnoremap <C-n> :call NumberToggle()<cr>
+
+# 设置对齐方法
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+# 折叠快捷键
+<leader>zz
+
+" 切换前后buffer
+nnoremap [b :bprevious<cr>
+nnoremap ]b :bnext<cr>
+" 使用方向键切换buffer
+noremap <left> :bp<CR>
+noremap <right> :bn<CR>
+
+" tab切换
+map <leader>th :tabfirst<cr>
+map <leader>tl :tablast<cr>
+
+map <leader>tj :tabnext<cr>
+map <leader>tk :tabprev<cr>
+map <leader>tn :tabnew<cr>
+
+map <leader>te :tabedit<cr>
+map <leader>td :tabclose<cr>
+map <leader>tm :tabm<cr>
+
+
+" normal模式下切换到确切的tab
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+# 跳转到最后活跃的tab
+nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+
+# 复制到系统剪贴板
+vnoremap <leader>y "+y
+
+" Quickly close the current window
+nnoremap <leader>q :q<CR>
+
+" Quickly save the current file
+nnoremap <leader>w :w<CR>
+
+" remap U to <C-r> for easier redo
+nnoremap U <C-r>
+
+# 自动格式化
+nnoremap <F7> :Autoformat<CR>
+
+"更高效的移动 [,, + w/fx/h/j/k/l]
+Plug 'Lokaltog/vim-easymotion'
+
+" 更高效的行内移动, f/F/t/T, 才触发
+" quickscope
+Plug 'unblevable/quick-scope'
+
+" signature
+" 显示marks - 方便自己进行标记和跳转
+" m[a-zA-Z] add mark
+" '[a-zA-Z] go to mark
+" m<Space>  del all marks
+" m/        list all marks
+" m.        add new mark just follow previous mark
+
+" ctrlsf
+"  `\` 搜索当前光标下的单词
+" 类似sublimetext的搜索
+" In CtrlSF window:
+" 回车/o, 打开
+" t       在tab中打开(建议)
+" T - Lkie t but focus CtrlSF window instead of opened new tab.
+" q - Quit CtrlSF window.

@@ -5,7 +5,7 @@
 " BlogPost: http://www.wklken.me
 " ReadMe: README.md
 " Donation: http://www.wklken.me/pages/donation.html
-" Last_modify: 2015-12-15
+" Last_modify: 2018-05-25
 " Sections:
 "       -> Initial Plugin 加载插件
 "       -> General Settings 基础设置
@@ -42,6 +42,8 @@
 let mapleader = ','
 let g:mapleader = ','
 
+let localmapleader = "<space>"
+
 " 开启语法高亮
 syntax on
 
@@ -60,9 +62,9 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
+nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
 
 " history存储容量
 set history=2000
@@ -108,9 +110,9 @@ set noswapfile
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 
 " 突出显示当前列
-set cursorcolumn
+set nocursorcolumn
 " 突出显示当前行
-set cursorline
+set nocursorline
 
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
@@ -157,7 +159,7 @@ set ruler
 " 在状态栏显示正在输入的命令
 set showcmd
 " 左下角显示当前vim模式
-set showmode
+set noshowmode
 
 " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
 set scrolloff=7
@@ -258,7 +260,7 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+nnoremap <leader>n :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
@@ -299,9 +301,6 @@ autocmd! bufwritepost _vimrc source %
 " vimrc文件修改之后自动加载, linux
 autocmd! bufwritepost .vimrc source %
 
-" 自动补全配置
-" 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-set completeopt=longest,menu
 
 " 增强模式中的命令行自动完成操作
 set wildmenu
@@ -387,7 +386,7 @@ set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    that won't be autoindented
 
 " disbale paste mode when leaving insert mode
-au InsertLeave * set nopaste
+" au InsertLeave * set nopaste
 
 " F5 set paste问题已解决, 粘贴代码前不需要按F5了
 " F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
@@ -402,10 +401,10 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 " 分屏窗口移动, Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" map <C-j> <C-W>j
+" map <C-k> <C-W>k
+" map <C-h> <C-W>h
+" map <C-l> <C-W>l
 
 
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin

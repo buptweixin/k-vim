@@ -1,6 +1,8 @@
+# 快速添加行
+nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 # 开启绝对和相对行号显示
-nnoremap <C-n> :call NumberToggle()<cr>
-
+nnoremap <leader>n :call NumberToggle()<cr>
 # 设置对齐方法
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -81,3 +83,30 @@ Plug 'unblevable/quick-scope'
 " t       在tab中打开(建议)
 " T - Lkie t but focus CtrlSF window instead of opened new tab.
 " q - Quit CtrlSF window.
+
+" 增加行文本对象: l   dal yal cil
+" 增加文件文本对象: e   dae yae cie
+" 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
+
+# 错误检查
+nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
+nmap <silent> <Leader>en <Plug>(ale_next_wrap)
+nnoremap <silent> <Leader>ec :ALEToggle<CR>
+
+# us
+map <leader>us :UltiSnipsEdit<CR>
+
+map <leader><space> :FixWhitespace<cr>
+
+# 多光标
+let g:multi_cursor_next_key='<C-m>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
+<F10> AutoRun
+
+map <C-n> :CtrlPMRU<CR>
+let g:ctrlp_map = '<C-p>'
+nnoremap <m-p> :CtrlPFunky<Cr>
+nnoremap <m-P> :execute 'CtrlPFunky ' . expand('<cword>')<Cr>

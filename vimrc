@@ -279,8 +279,6 @@ set encoding=utf-8
 " 自动判断编码时，依次尝试以下编码：
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set helplang=cn
-"set langmenu=zh_CN.UTF-8
-"set enc=2byte-gb18030
 " 下面这句只影响普通模式 (非图形界面) 下的 Vim
 set termencoding=utf-8
 
@@ -381,14 +379,6 @@ nnoremap <F4> :set wrap! wrap?<CR>
 " F6 语法开关，关闭语法可以加快大文件的展示
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
-set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
-                                "    paste mode, where you can paste mass data
-                                "    that won't be autoindented
-
-" disbale paste mode when leaving insert mode
-" au InsertLeave * set nopaste
-
-" F5 set paste问题已解决, 粘贴代码前不需要按F5了
 " F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
 " Automatically set paste mode in Vim when pasting in insert mode
 function! XTermPasteBegin()
@@ -473,6 +463,7 @@ nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
 noremap <left> :bp<CR>
 noremap <right> :bn<CR>
+noremap <m-b> :ls<CR>
 
 
 " tab 操作
@@ -480,37 +471,30 @@ noremap <right> :bn<CR>
 " http://stackoverflow.com/questions/2005214/switching-to-a-particular-tab-in-vim
 
 " tab切换
-map <leader>th :tabfirst<cr>
-map <leader>tl :tablast<cr>
-
-map <leader>tj :tabnext<cr>
-map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
-
-map <leader>te :tabedit<cr>
-map <leader>td :tabclose<cr>
-map <leader>tm :tabm<cr>
-
+noremap <tab>h :tabfirst<cr>
+noremap <tab>l :tablast<cr>
+noremap <tab>n :tabnext<cr>
+noremap <tab>p :tabprev<cr>
+noremap <tab>c :tabclose<cr>
+noremap <tab>m :tabm<cr>
+noremap <tab>e :tabedit<cr>
 " normal模式下切换到确切的tab
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+noremap <tab>1 1gt
+noremap <tab>2 2gt
+noremap <tab>3 3gt
+noremap <tab>4 4gt
+noremap <tab>5 5gt
+noremap <tab>6 6gt
+noremap <tab>7 7gt
+noremap <tab>8 8gt
+noremap <tab>9 9gt
+noremap <tab>0 :tablast<cr>
 
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
 let g:last_active_tab = 1
 " nnoremap <leader>gt :execute 'tabnext ' . g:last_active_tab<cr>
-" nnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-" vnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+nnoremap <silent> <tab>t :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
 " 新建tab  Ctrl+t
@@ -537,7 +521,6 @@ vnoremap <leader>y "+y
 
 " select all
 map <Leader>sa ggVG
-
 " 选中并高亮最后一次插入的内容
 nnoremap gv `[v`]
 
@@ -572,14 +555,6 @@ nnoremap ` '
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
-
-" Quickly edit/reload the vimrc file
-" nmap <silent> <leader>ev :e $MYVIMRC<CR>
-" nmap <silent> <leader>sv :so $MYVIMRC<CR>
-" edit vimrc/zshrc and load vimrc bindings
-" nnoremap <leader>ev :vsp $MYVIMRC<CR>
-" nnoremap <leader>ez :vsp ~/.zshrc<CR>
-" nnoremap <leader>sv :source $MYVIMRC<CR>
 
 "==========================================
 " FileType Settings  文件类型设置
@@ -617,9 +592,8 @@ function! AutoSetFileHead()
 
     "如果文件类型为python
     if &filetype == 'python'
-        " call setline(1, "\#!/usr/bin/env python")
-        " call append(1, "\# encoding: utf-8")
-        call setline(1, "\# -*- coding: utf-8 -*-")
+        call setline(1, "\#!/usr/bin/env python")
+        call setline(2, "\# -*- coding: utf-8 -*-")
     endif
 
     normal G
@@ -675,7 +649,7 @@ set t_Co=256
 
 " colorscheme molokai
 colorscheme solarized
-let g:molokai_original = 1
+" let g:molokai_original = 1
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致

@@ -27,6 +27,8 @@ endif
 "
 
 call plug#begin('~/.vim/bundle')
+" preview
+Plug 'skywind3000/vim-preview'
 " gtags
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
@@ -34,40 +36,26 @@ Plug 'skywind3000/gutentags_plus'
 let g:gutentags_modules = ['ctags', 'gtags_cscope']
 
 " config project root markers.
-let g:gutentags_project_root = ['.root']
+let g:gutentags_project_root = ['.root', '.project', '.svn', '.git']
 
 " generate datebases in my cache directory, prevent gtags files polluting my project
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 
 " forbid gutentags adding gtags databases
 let g:gutentags_auto_add_gtags_cscope = 0
+let g:gutentags_define_advanced_commands = 1
 
 
 " REPL
 if has('vim') && v:version >= 800
 Plug 'sillybun/vim-repl'
-    map <leader>tr :REPLToggle<CR>
+    map <m-r> :REPLToggle<CR>
     let g:repl_program = {
                 \	"python": "python",
                 \	"default": "bash"
                 \	}
 endif
-" tmux
-Plug 'christoomey/vim-tmux-navigator'
 
-" buff标签
-Plug 'fholgado/minibufexpl.vim'
-let g:miniBufExplMapCTabSwitchBufs = 1
-
-" 自动检查乱码文件的编码
-Plug 'adah1972/fencview'
-
-" css颜色显示
-" Plug 'ap/vim-css-color'
-
-" 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
-"
-"
 " syntastic
 " 语法检查，高亮错误位置，k-vim中使用<leader>s打开错误列表，<leader>sn到下一个
 " 错误, <leader>sp到上一个错误
@@ -80,11 +68,9 @@ endif
 
 "errormarker
 Plug 'mh21/errormarker.vim'
+
 Plug 'Shougo/echodoc.vim'
-" 显示buff标签
-" 命令模式下:bn :bp切换到上一个/下一个buffer, :b`num`跳转到指定编号的buffer
-" Plug 'fholgado/minibufexpl.vim'
-" let g:miniBufExplMapCTabSwitchBufs = 1
+let g:echodoc#enable_at_startup = 1 
 
 " 自动检查乱码文件的编码
 " 使用方法:
@@ -93,6 +79,7 @@ Plug 'Shougo/echodoc.vim'
 "     - FencView
 "       选择指定编码reload文件
 Plug 'adah1972/fencview'
+noremap <m-f> :FencAutoDetect<cr>
 set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936
 
 if has('mac')
@@ -137,7 +124,6 @@ Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
 " <leader>c<space>  加上/解开注释, 智能判断
 " <leader>cy   先复制, 再注解(p可以进行黏贴)
 Plug 'scrooloose/nerdcommenter'
-
 
 " 快速加入修改环绕字符
 " for repeat -> enhance surround.vim, . to repeat command
@@ -188,10 +174,10 @@ Plug 'terryma/vim-multiple-cursors'
 " quick locate file or function
 " 文件搜索
 " 使用leaderF替代ctrlp
-" <leader>p 搜索当前文件及其子文件夹下的文件
-" <leader>f 搜索最近打开的文件
-" <leader>fu 在当前文件的函数列表里搜索
-" <leader>fU 搜索当前光标下单词对应的函数
+" <c-p> 搜索当前文件及其子文件夹下的文件
+" <c-n> 搜索最近打开的文件
+" <m-p> 在当前文件的函数列表里搜索
+" <m-n>列出buffers 
 Plug 'Yggdroot/LeaderF'
 " ctrlsf
 "  `\` 搜索当前光标下的单词
@@ -208,19 +194,17 @@ Plug 'dyng/ctrlsf.vim'
 " map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
 
-" quick run
-" quickrun
-Plug 'thinca/vim-quickrun'
-
 " git
 " fugitive
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 " gitgutter
-Plug 'airblade/vim-gitgutter', {'on': 'GitGutterToggle'}
+" signify, 左侧显示git状态，以及可以对比文件改变
+Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
+" Plug 'airblade/vim-gitgutter', {'on': 'GitGutterToggle'}
 
-" gundo
+" gundo only support python2.x
 " edit history, 可以查看回到某个历史状态
-Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
+" Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
 
 " view
 " airline
@@ -233,18 +217,13 @@ Plug 'kien/rainbow_parentheses.vim'
 " 主题 solarized
 " solarized
 Plug 'altercation/vim-colors-solarized'
-" molokai
-" 主题 molokai
-Plug 'tomasr/molokai'
-
 
 " nav
 " nerdtree nerdtreetabs
-Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs', {'on': 'NERDTreeTabsToggle'}
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs' 
 " ctrlspace
-Plug 'vim-ctrlspace/vim-ctrlspace', {'on': 'CtrlSpace'}
-" tagbar
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+" Plug 'vim-ctrlspace/vim-ctrlspace', {'on': 'CtrlSpace'}
 
 " text object
 " 支持自定义文本对象
@@ -266,27 +245,6 @@ if count(g:bundle_groups, 'cpp')
     Plug 'derekwyatt/vim-fswitch', {'for': 'cpp'}
     nmap <silent> <Leader>sh :FSHere<cr>
 
-    " ====
-    " 自动生成和更新ctags
-    " ====
-    " Plug 'vim-scripts/DfrankUtil'
-    " Plug 'vim-scripts/vimprj'
-    " Plug 'vim-scripts/indexer.tar.gz'
-    " 设置插件 indexer 调用 ctags 的参数
-    " 默认 --c++-kinds=+p+l，重新设置为 --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v
-    " 默认 --fields=+iaS 不满足 YCM 要求，需改为 --fields=+iaSl
-    let g:indexer_ctagsCommandLineOptions="--c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+iaSl --extra=+q"
-
-    " ====
-    " 由接口快速生成实现框架
-    " 写好h文件后在cpp文件中引入头文件，然后使用<leader>PP
-    " ====
-    " Plug 'derekwyatt/vim-protodef'
-    " 设置 pullproto.pl 脚本路径
-    " let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
-    " 成员函数的实现顺序与声明顺序一致
-    " let g:disable_protodef_sorting=1
-    " nmap <buffer> <silent> <leader>PP
 endif
 
 if count(g:bundle_groups, 'tmux')
@@ -306,13 +264,6 @@ if count(g:bundle_groups, 'markdown')
     map <F12> :InstantMarkdownPreview<CR>
 endif
 
-if count(g:bundle_groups, 'golang')
-    " 1. vim a.go
-    " 2. :GoInstallBinaries
-    " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', {'for': 'go'}
-endif
-
 
 if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
@@ -323,9 +274,12 @@ if count(g:bundle_groups, 'python')
 
     " isort  https://github.com/timothycrosley/isort#readme + https://github.com/fisadev/vim-isort#installation
     " pip install isort
-    Plug 'fisadev/vim-isort', {'for': 'py'}
+    Plug 'fisadev/vim-isort'
+    let g:ale_python_isort_executable = 'isort'
+    let g:ale_python_isort_use_global = 1
     " Shift-V 上下选中, ,i 规范化
-    let g:vim_isort_map = '<C-s>'
+    let g:vim_isort_map = '<c-i>'
+    let g:vim_isort_python_version = 'python3'
 endif
 
 
@@ -345,6 +299,15 @@ call plug#end()
 " ################### 基础 ######################
 " ale {{{
 if has_key(g:plugs, 'ale')
+    let g:ale_linters_explicit = 1
+    let g:ale_completion_delay = 500
+    let g:ale_echo_delay = 20
+    let g:ale_lint_delay = 500
+    let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+    let g:ale_lint_on_text_changed = 'normal'
+    let g:ale_lint_on_insert_leave = 1
+    let g:airline#extensions#ale#enabled = 1
+
     " pip install flake8
     if has('mac')
         let g:clang_library_path = '/usr/local/Cellar/llvm/3.6.2/lib/libclang.dylib'
@@ -369,11 +332,6 @@ if has_key(g:plugs, 'ale')
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-    nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
-    nmap <silent> <Leader>en <Plug>(ale_next_wrap)
-
-    nnoremap <silent> <Leader>ec :ALEToggle<CR>
-
     " troggle quickfix list
     function! ToggleErrors()
         let old_last_winnr = winnr('$')
@@ -383,6 +341,9 @@ if has_key(g:plugs, 'ale')
             lopen
         endif
     endfunction
+    nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
+    nmap <silent> <Leader>en <Plug>(ale_next_wrap)
+    nnoremap <silent> <Leader>ec :ALEToggle<CR>
     nnoremap <Leader>s :call ToggleErrors()<cr>
 
     let g:ale_set_highlights = 1
@@ -485,7 +446,7 @@ let g:ycm_semantic_triggers =  {
 " 自动补全配置
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 " set completeopt=longest,menu
-" set completeopt=menu,menuone
+set completeopt=menu,menuone
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_show_diagnostics_ui = 0
@@ -659,6 +620,17 @@ let g:multi_cursor_quit_key='<Esc>'
 " ################### 功能相关 ###################
 
 " ctrlF {{{
+
+
+let g:Lf_NormalMap = {
+	\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+	\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+	\ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+	\ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+	\ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+	\ }
+
 let g:Lf_ShortcutF = '<c-p>'
 let g:Lf_ShortcutB = '<m-n>'
 map <C-p> :LeaderfFile<CR>
@@ -673,7 +645,15 @@ let g:Lf_CacheDirectory = expand('~/.vim/cache')
 let g:Lf_ShowRelativePath = 0
 let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0, 'Colorscheme':1}
+let g:Lf_WildIgnore = {
+            \ 'dir': ['.svn','.git','.hg'],
+            \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+            \}
+let g:Lf_MruFileExclude = ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+let g:Lf_DefaultExternalTool = 'ag'
+let g:Lf_RootMarkers = ['.git', '.hg', '.svn', '.project', '.root']
+
 " }}}
 
 
@@ -700,30 +680,24 @@ let g:ctrlsf_mapping = {
 
 " git.  git操作还是习惯命令行,vim里面处理简单diff编辑操作
 
-" fugitive {{{
-" :Gdiff  :Gstatus :Gvsplit
-nnoremap <leader>ge :Gdiff<CR>
-" not ready to open
-nnoremap <leader>gb :Gblame<CR>
-" <leader>gs maps to :Gstatus<CR>
-" <leader>gd maps to :Gdiff<CR>  和现有冲突
-nnoremap <leader>gl :Glog<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gp :Git push<CR>
+" signify {{{
+let g:signify_vcs_list = [ 'git']
+nnoremap <m-g> :SignifyToggle<CR>
+nnoremap <m-d> :SignifyDiff<CR>
 " }}}
 
 " gitgutter {{{
 " 同git diff,实时展示文件中修改的行
 " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
-let g:gitgutter_map_keys = 0
-let g:gitgutter_enabled = 0
-let g:gitgutter_highlight_lines = 1
-nnoremap <leader>gs :GitGutterToggle<CR>
+" let g:gitgutter_map_keys = 0
+" let g:gitgutter_enabled = 0
+" let g:gitgutter_highlight_lines = 1
+" nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
 " gundo {{{
-" reset到历史状态
-noremap <leader>h :GundoToggle<CR>
+" reset到历史状态 only support python2.x
+" noremap <leader>h :GundoToggle<CR>
 " }}}
 
 " ################### 显示增强 ###################
@@ -792,7 +766,6 @@ let g:rehash256 = 1
 " ################### 快速导航 ###################
 
 " nerdtree nerdtreetabs {{{
-nmap <m-t> :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
 "close vim if the only window left open is a NERDTree
@@ -803,58 +776,19 @@ let g:NERDTreeMapOpenVSplit = 'v'
 
 
 " nerdtreetabs
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
+" map <m-t> :NERDTreeToggle<CR>
+map <m-t> :NERDTreeTabsToggle<CR>
 " 关闭同步
-" let g:nerdtree_tabs_synchronize_view=0
-" let g:nerdtree_tabs_synchronize_focus=0
+let g:nerdtree_tabs_synchronize_view=0
+let g:nerdtree_tabs_synchronize_focus=0
 " 是否自动开启nerdtree
 " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
 let g:nerdtree_tabs_open_on_console_startup=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 " }}}
 
-
-" Vim Workspace Controller
-" ctrlspace {{{
-" if has("gui_running")
-" Settings for MacVim and Inconsolata font
-let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
-" endif
-if executable("ag")
-    let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
-let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
-let g:CtrlSpaceSaveWorkspaceOnExit = 1
-let g:airline_exclude_preview = 1
-hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
-hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
-hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
-hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
-" }}}
-
-
-" 标签导航
-" tagbar {{{
-nmap <F9> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
-" let g:tagbar_autoshowtag = 1
-" let g:tagbar_show_visibility = 1
-
-
 " ################### 语言相关 ###################
 
-" quickrun {{{
-let g:quickrun_config = {
-            \   "_" : {
-            \       "outputter" : "message",
-            \   },
-            \}
-
-let g:quickrun_no_default_key_mappings = 1
-nmap <Leader>r <Plug>(quickrun)
-map <F10> :QuickRun<CR>
-" }}}
 
 
 " pythonsyntax {{{
@@ -894,18 +828,55 @@ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 " 如果使用 universal ctags 需要增加下面一行
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+" let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 " 禁用 gutentags 自动加载 gtags 数据库的行为
 let g:gutentags_auto_add_gtags_cscope = 0
 
 let g:gutentags_plus_nomap = 1
-noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
-noremap <silent> <leader>gg :GscopeFind g <C-R><C-W><cr>
-noremap <silent> <leader>gc :GscopeFind c <C-R><C-W><cr>
-noremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
-noremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
-noremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent> <leader>gd :GscopeFind d <C-R><C-W><cr>
-noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
+" 找symbol
+noremap <silent> <m-j>s :GscopeFind s <C-R><C-W><cr>
+" 找定义
+noremap <silent> <m-j>g :GscopeFind g <C-R><C-W><cr>
+" 找到调用当前函数的所有函数
+noremap <silent> <m-j>c :GscopeFind c <C-R><C-W><cr>
+" 找到当前textstring
+noremap <silent> <m-j>t :GscopeFind t <C-R><C-W><cr>
+" 从egrep找
+noremap <silent> <m-j>e :GscopeFind e <C-R><C-W><cr>
+" 找当前文件
+noremap <silent> <m-j>f :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+" 找到include当前文件的所有文件
+noremap <silent> <m-j>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+" 找到被当前函数调用的函数
+noremap <silent> <m-j>d :GscopeFind d <C-R><C-W><cr>
+" 找到当前symbol被赋值的位置
+noremap <silent> <m-j>a :GscopeFind a <C-R><C-W><cr>
+
+" vim-preview {{{
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+noremap <F3> :PreviewSignature!<cr>
+inoremap <F3> <c-\><c-o>:PreviewSignature!<cr>
+" }}}
+"
+" vim-asyncrun {{{
+" 自动打开 quickfix window ，高度为 6
+nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+let g:asyncrun_open = 6
+
+" 任务结束时候响铃提醒
+let g:asyncrun_bell = 1
+" <F9>编译
+nnoremap <silent> <F9> :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+" nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) python "$(VIM_FILEPATH)"<CR>
+" nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr>
+" nnoremap <silent> <F6> :AsyncRun -cwd=<root> -raw make test <cr>
+" nnoremap <silent> <F4> :AsyncRun -cwd=<root> cmake . <cr>
+
+" }}}
+"
+" vim-dirvish {{{
+" noremap <silent><buffer> ~ :Dirvish ~<cr>
+" }}}

@@ -238,12 +238,11 @@ Plug 'kana/vim-textobj-indent'
 if count(g:bundle_groups, 'cpp')
     " Add maktaba and bazel to the runtimepath.
     " " (The latter must be installed before it can be used.)
-    Plug 'google/vim-maktaba', {'for': 'cpp'}
-    Plug 'bazelbuild/vim-bazel', {'for': 'cpp'}
-    Plug 'rdnetto/YCM-Generator', {'for': 'cpp'}
+    " Plug 'google/vim-maktaba', {'for': 'cpp'}
+    " Plug 'bazelbuild/vim-bazel', {'for': 'cpp'}
 
-    Plug 'derekwyatt/vim-fswitch', {'for': 'cpp'}
-    nmap <silent> <Leader>sh :FSHere<cr>
+    " Plug 'derekwyatt/vim-fswitch', {'for': 'cpp'}
+    " nmap <silent> <Leader>sh :FSHere<cr>
 
 endif
 

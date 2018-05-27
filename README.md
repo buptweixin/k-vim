@@ -1,6 +1,32 @@
 k-vim
 =======================
 
+
+# update log
+## 2017.12.01
+### gutentags报错, 'gutentags: gutentags: gtags-cscope job failed, returned: 1'：
+1. 在'vimrc'中打开gutentags的高级选项'let g:gutentags_define_advanced_commands = 1'
+2. 随便打开一个文件，数据':GutentagsToggleTrace',然后保存，触发详细错误信息
+3. 当前已知的问题是`/Users/weixin/software/k-vim/bundle/vim-gutentags/autoload/gutentags.vim`的第30行，trace函数里`a:message`有时候获取到的是List而不是String,直接使用`a:message[0]`取代`a:message`即可
+### 使用异步补全工具Completor替代YouCompleteMe
+1. Requirements
+    - vim8 compiled with python or python3
+2. 自动补全列表
+    - 文件名[by default]
+    - Ultisnips[by default if installed] or neosnippet[completor-neosnippet should has been installed]
+    - python
+        `pip install jedi`
+        `let g:completor_python_binary = '/path/to/python/with/jedi/installed'`
+    - cpp [clang should has been installed]
+        `let g:completor_clang_binary = '/path/to/clang'`
+        `let g:clang_library_path = '/path/to/libclang'`
+        每个工程目录下可以新建一个`.clang_complete`文件， 内部指定头文件路径，c++标准等, 下面是一个例子
+        ```cpp
+        -std=c++11
+        -I/Users/maralla/Workspace/src/dji-sdk/Onboard-SDK/lib/inc
+        -I/Users/maralla/Workspace/src/dji-sdk/Onboard-SDK/sample/Linux/inc
+        ```
+
 ## 快捷键合集
 ### cpp
 1. 头文件和源文件跳转
@@ -126,7 +152,7 @@ k-vim
 
 > LAST_UPDATE_TIME: 2017-07-29
 
-> 本次更新: 小版本更新, 支持vim8异步愈发检查
+> 本次更新: 小版本更新, 支持vim8异步语法检查
 
 详细 [更新日志](https://github.com/wklken/k-vim/wiki/UPDATE_LOG)
 

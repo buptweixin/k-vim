@@ -5,7 +5,7 @@
 " BlogPost: http://www.wklken.me
 " ReadMe: README.md
 " Donation: http://www.wklken.me/pages/donation.html
-" Last_modify: 2015-12-15
+" Last_modify: 2018-05-25
 " Sections:
 "       -> Initial Plugin 加载插件
 "       -> General Settings 基础设置
@@ -21,12 +21,28 @@
 "==========================================
 
 "==========================================
+" tmux
+"==========================================
+" if exists('$ITERM_PROFILE')
+  " if exists('$TMUX')
+    " let &amp;t_SI = "<Esc>[3 q"
+    " let &amp;t_EI = "<Esc>[0 q"
+  " else
+    " let &amp;t_SI = "<Esc>]50;CursorShape=1x7"
+    " let &amp;t_EI = "<Esc>]50;CursorShape=0x7"
+  " endif
+" end
+
+"==========================================
 " Initial Plugin 加载插件
 "==========================================
 
 " 修改leader键
+
 let mapleader = ','
 let g:mapleader = ','
+
+let localmapleader = "<space>"
 
 " 开启语法高亮
 syntax on
@@ -46,21 +62,9 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
+nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" 设置环境保存项
-" set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-" 保存 undo 历史
-" set undodir=~/.undo_history/
-" set undofile
-" 保存快捷键
-" map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
-" 恢复快捷键
-" map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
 
 " history存储容量
 set history=2000
@@ -106,9 +110,9 @@ set noswapfile
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 
 " 突出显示当前列
-set cursorcolumn
+set nocursorcolumn
 " 突出显示当前行
-set cursorline
+set nocursorline
 
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
@@ -155,7 +159,7 @@ set ruler
 " 在状态栏显示正在输入的命令
 set showcmd
 " 左下角显示当前vim模式
-set showmode
+set noshowmode
 
 " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
 set scrolloff=7
@@ -238,6 +242,7 @@ set hidden
 set wildmode=list:longest
 set ttyfast
 
+
 " 00x增减数字时使用十进制
 set nrformats=
 
@@ -255,7 +260,7 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+nnoremap <leader>n :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
@@ -274,8 +279,6 @@ set encoding=utf-8
 " 自动判断编码时，依次尝试以下编码：
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set helplang=cn
-"set langmenu=zh_CN.UTF-8
-"set enc=2byte-gb18030
 " 下面这句只影响普通模式 (非图形界面) 下的 Vim
 set termencoding=utf-8
 
@@ -296,9 +299,6 @@ autocmd! bufwritepost _vimrc source %
 " vimrc文件修改之后自动加载, linux
 autocmd! bufwritepost .vimrc source %
 
-" 自动补全配置
-" 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-set completeopt=longest,menu
 
 " 增强模式中的命令行自动完成操作
 set wildmenu
@@ -340,10 +340,10 @@ endif
 " 主要按键重定义
 
 " 关闭方向键, 强迫自己用 hjkl
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+" map <Left> <Nop>
+" map <Right> <Nop>
+" map <Up> <Nop>
+" map <Down> <Nop>
 
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
@@ -372,21 +372,13 @@ function! HideNumber()
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
 " F3 显示可打印字符开关
-nnoremap <F3> :set list! list?<CR>
+"nnoremap <F3> :set list! list?<CR>
 " F4 换行开关
 nnoremap <F4> :set wrap! wrap?<CR>
 
 " F6 语法开关，关闭语法可以加快大文件的展示
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
-set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
-                                "    paste mode, where you can paste mass data
-                                "    that won't be autoindented
-
-" disbale paste mode when leaving insert mode
-au InsertLeave * set nopaste
-
-" F5 set paste问题已解决, 粘贴代码前不需要按F5了
 " F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
 " Automatically set paste mode in Vim when pasting in insert mode
 function! XTermPasteBegin()
@@ -399,10 +391,10 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 " 分屏窗口移动, Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" map <C-j> <C-W>j
+" map <C-k> <C-W>k
+" map <C-h> <C-W>h
+" map <C-l> <C-W>l
 
 
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin
@@ -471,6 +463,7 @@ nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
 noremap <left> :bp<CR>
 noremap <right> :bn<CR>
+noremap <m-b> :ls<CR>
 
 
 " tab 操作
@@ -478,37 +471,30 @@ noremap <right> :bn<CR>
 " http://stackoverflow.com/questions/2005214/switching-to-a-particular-tab-in-vim
 
 " tab切换
-map <leader>th :tabfirst<cr>
-map <leader>tl :tablast<cr>
-
-map <leader>tj :tabnext<cr>
-map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
-
-map <leader>te :tabedit<cr>
-map <leader>td :tabclose<cr>
-map <leader>tm :tabm<cr>
-
+noremap <tab>h :tabfirst<cr>
+noremap <tab>l :tablast<cr>
+noremap <tab>n :tabnext<cr>
+noremap <tab>p :tabprev<cr>
+noremap <tab>c :tabclose<cr>
+noremap <tab>m :tabm<cr>
+noremap <tab>e :tabedit<cr>
 " normal模式下切换到确切的tab
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+noremap <tab>1 1gt
+noremap <tab>2 2gt
+noremap <tab>3 3gt
+noremap <tab>4 4gt
+noremap <tab>5 5gt
+noremap <tab>6 6gt
+noremap <tab>7 7gt
+noremap <tab>8 8gt
+noremap <tab>9 9gt
+noremap <tab>0 :tablast<cr>
 
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
 let g:last_active_tab = 1
 " nnoremap <leader>gt :execute 'tabnext ' . g:last_active_tab<cr>
-" nnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-" vnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+nnoremap <silent> <tab>t :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
 " 新建tab  Ctrl+t
@@ -535,7 +521,6 @@ vnoremap <leader>y "+y
 
 " select all
 map <Leader>sa ggVG
-
 " 选中并高亮最后一次插入的内容
 nnoremap gv `[v`]
 
@@ -570,14 +555,6 @@ nnoremap ` '
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
-
-" Quickly edit/reload the vimrc file
-" nmap <silent> <leader>ev :e $MYVIMRC<CR>
-" nmap <silent> <leader>sv :so $MYVIMRC<CR>
-" edit vimrc/zshrc and load vimrc bindings
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>ez :vsp ~/.zshrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
 
 "==========================================
 " FileType Settings  文件类型设置
@@ -615,9 +592,8 @@ function! AutoSetFileHead()
 
     "如果文件类型为python
     if &filetype == 'python'
-        " call setline(1, "\#!/usr/bin/env python")
-        " call append(1, "\# encoding: utf-8")
-        call setline(1, "\# -*- coding: utf-8 -*-")
+        call setline(1, "\#!/usr/bin/env python")
+        call setline(2, "\# -*- coding: utf-8 -*-")
     endif
 
     normal G
@@ -671,8 +647,9 @@ endif
 set background=dark
 set t_Co=256
 
-" colorscheme solarized
-colorscheme molokai
+" colorscheme molokai
+colorscheme solarized
+" let g:molokai_original = 1
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致

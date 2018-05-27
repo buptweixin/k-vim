@@ -46,6 +46,8 @@ let g:gutentags_auto_add_gtags_cscope = 0
 let g:gutentags_define_advanced_commands = 0
 
 
+
+
 " REPL
 if has('vim') && v:version >= 800
 Plug 'sillybun/vim-repl'
@@ -69,8 +71,8 @@ endif
 "errormarker
 Plug 'mh21/errormarker.vim'
 
-Plug 'Shougo/echodoc.vim'
-let g:echodoc#enable_at_startup = 1 
+" Plug 'Shougo/echodoc.vim'
+" let g:echodoc#enable_at_startup = 1 
 
 " 自动检查乱码文件的编码
 " 使用方法:
@@ -114,6 +116,9 @@ augroup load_ycm
 augroup END
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
+" 自动补全函数参数
+Plug 'tenfyzhong/CompleteParameter.vim'
+
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
 
@@ -494,6 +499,18 @@ let g:ycm_filetype_blacklist = {
             \}
 " }}}
 
+" CompleteParameter {{{
+" 5: disable log. 4: only print error log. 2: print error and debug log. 1: print error, debug, trace log.
+" let g:complete_parameter_log_level = 5
+" If this option is 1 and you use ultisnips together, it will use ultisnips mapping to goto next or previous parameter. default: 0
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+" let g:complete_parameter_use_ultisnips_mapping = 0
+" let g:complete_parameter_echo_signature = 1
+smap <m-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <m-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <m-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <m-k> <Plug>(complete_parameter#goto_previous_parameter)
+" }}}
 
 " ultisnips {{{
 let g:UltiSnipsExpandTrigger       = "<tab>"
@@ -530,6 +547,7 @@ let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 " delimitMate {{{
 " for python docstring ",优化输入
 au FileType python let b:delimitMate_nesting_quotes = ['"']
+au FileType python let delimitMate_matchpairs  = "[:],{:}"
 au FileType php let delimitMate_matchpairs = "(:),[:],{:}"
 " 关闭某些类型文件的自动补全
 "au FileType mail let b:delimitMate_autoclose = 0

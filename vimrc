@@ -62,9 +62,28 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
+" 在当前行前、后加入空行
 nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
-
+" 将当前行向下或向上移动
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+" 跳转到头文件和源文件
+autocmd BufLeave *.{c,cpp} mark C
+autocmd BufLeave *.h       mark H
+" 改变光标形状, 普通模式块光标，插入模式使用条状光标，替换模式使用下划线光标
+if empty($TMUX)
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+else
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+endif
+" 智能当前行高亮
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
 
 " history存储容量
 set history=2000
@@ -678,3 +697,12 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+
+" 定制n永远x向后搜索，N向前搜索
+nnoremap <expr> n  'Nn'[v:searchforward]
+nnoremap <expr> N  'nN'[v:searchforward]
+
+" 通过c-p, c-n模拟按上下方向键浏览历史输入过的命令
+cnoremap <c-n> <down>
+cnoremap <c-p> <up>
+

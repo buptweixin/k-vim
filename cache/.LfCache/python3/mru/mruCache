@@ -1,5 +1,8 @@
+/Users/weixin/software/k-vim/keymaps.vim
 /Users/weixin/.vimrc.bundles
+/Users/weixin/software/k-vim/bundle/delimitMate/doc/delimitMate.txt
 /Users/weixin/.vimrc
+/Users/weixin/workspace/projects/vim/myvim/test.py
 /Users/weixin/software/k-vim/README.md
 /Users/weixin/software/k-vim/bundle/vim-gutentags/autoload/gutentags.vim
 /Users/weixin/software/k-vim/bundle/vim-gutentags/test.py
@@ -13,13 +16,11 @@
 /Users/weixin/MEGA/mypaper/iecas-thesis/Tex/Frontpages.tex
 /Users/weixin/iecas-thesis/README.md
 /Users/weixin/MEGA/mypaper/iecas-thesis/README.md
-/Users/weixin/software/k-vim/keymaps.vim
 /Users/weixin/software/k-vim/UltiSnips/all.snippets
 /Users/weixin/workspace/projects/vim/myvim/get-pip.py
 /Users/weixin/workspace/projects/vim/myvim/vim.log.txt
 /Users/weixin/workspace/projects/vim/myvim/test.cpp
 /Users/weixin/workspace/projects/vim/myvim/lib.py
-/Users/weixin/workspace/projects/vim/myvim/test.py
 /Users/weixin/software/k-vim/bundle/vim-signify/doc/signify.txt
 /Users/weixin/workspace/projects/vim/myvim/testtab.txt
 /usr/local/Cellar/neovim/0.2.2_1/share/nvim/runtime/doc/syntax.txt
@@ -48,7 +49,6 @@
 /usr/local/Cellar/global/6.6.2_1/share/gtags/gtags.conf
 /Users/weixin/.cache/tags/Users-weixin-workspace-projects-vim-myvim-/GPATH
 /Users/weixin/software/k-vim/bundle/vim-gutentags/doc/gutentags.txt
-/Users/weixin/workspace/projects/vim/myvim/__pycache__/lib.cpython-36.pyc
 /Users/weixin/software/k-vim/bundle/LeaderF/autoload/leaderf/colorscheme/default.vim
 /usr/local/Cellar/neovim/0.2.2_1/share/nvim/runtime/doc/options.txt
 /Users/weixin/software/k-vim/bundle/YouCompleteMe/test.py

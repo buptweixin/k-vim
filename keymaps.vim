@@ -42,6 +42,9 @@ let g:multi_cursor_quit_key='<Esc>'
 # 快速添加行
 nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+# 将当前行向下或向上移动
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 # 开启绝对和相对行号显示
 nnoremap <leader>n :call NumberToggle()<cr>
 # 设置对齐方法
@@ -84,6 +87,11 @@ noremap <silent> <m-j>d :GscopeFind d <C-R><C-W><cr>
 noremap <silent> <m-j>a :GscopeFind a <C-R><C-W><cr>
 
 
+" 自动补全参数快捷键
+smap <m-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <m-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <m-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <m-k> <Plug>(complete_parameter#goto_previous_parameter)
 
 
 # 复制到系统剪贴板

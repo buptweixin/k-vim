@@ -1,8 +1,13 @@
 k-vim
 =======================
 
+
 # update log
 ## 2017.12.01
+### gutentags报错, 'gutentags: gutentags: gtags-cscope job failed, returned: 1'：
+1. 在'vimrc'中打开gutentags的高级选项'let g:gutentags_define_advanced_commands = 1'
+2. 随便打开一个文件，数据':GutentagsToggleTrace',然后保存，触发详细错误信息
+3. 当前已知的问题是`/Users/weixin/software/k-vim/bundle/vim-gutentags/autoload/gutentags.vim`的第30行，trace函数里`a:message`有时候获取到的是List而不是String,直接使用`a:message[0]`取代`a:message`即可
 ### 使用异步补全工具Completor替代YouCompleteMe
 1. Requirements
     - vim8 compiled with python or python3

@@ -748,3 +748,4 @@ function! Terminal_MetaMode(mode)
 endfunc
 
 command! -nargs=0 -bang VimMetaInit call Terminal_MetaMode(<bang>0)
+:VimMetaInit

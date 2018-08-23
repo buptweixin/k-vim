@@ -661,6 +661,17 @@ if has("gui_running")
 endif
 
 
+" if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" endif
+
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+" if (has("termguicolors"))
+  " set termguicolors
+" endif
 
 " theme主题
 set background=dark
@@ -668,7 +679,10 @@ set t_Co=256
 
 " colorscheme molokai
 colorscheme solarized
+" colorscheme palenight
 " let g:molokai_original = 1
+" " Italics for my favorite color scheme
+let g:palenight_terminal_italics=1
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
@@ -706,46 +720,46 @@ nnoremap <expr> N  'nN'[v:searchforward]
 cnoremap <c-n> <down>
 cnoremap <c-p> <up>
 
-function! Terminal_MetaMode(mode)
-    if has('nvim') || has('gui_running')
-        return
-    endif
-    function! s:metacode(mode, key)
-        if a:mode == 0
-            exec "set <M-".a:key.">=\e".a:key
-        else
-            exec "set <M-".a:key.">=\e]{0}".a:key."~"
-        endif
-    endfunc
-    for i in range(10)
-        call s:metacode(a:mode, nr2char(char2nr('0') + i))
-    endfor
-    for i in range(26)
-        call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        call s:metacode(a:mode, nr2char(char2nr('A') + i))
-    endfor
-    if a:mode != 0
-        for c in [',', '.', '/', ';', '[', ']', '{', '}']
-            call s:metacode(a:mode, c)
-        endfor
-        for c in ['?', ':', '-', '_']
-            call s:metacode(a:mode, c)
-        endfor
-    else
-        for c in [',', '.', '/', ';', '{', '}']
-            call s:metacode(a:mode, c)
-        endfor
-        for c in ['?', ':', '-', '_']
-            call s:metacode(a:mode, c)
-        endfor
-    endif
-    if &ttimeout == 0
-        set ttimeout
-    endif
-    if &ttimeoutlen <= 0
-        set ttimeoutlen=100
-    endif
-endfunc
+" function! Terminal_MetaMode(mode)
+    " if has('nvim') || has('gui_running')
+        " return
+    " endif
+    " function! s:metacode(mode, key)
+        " if a:mode == 0
+            " exec "set <M-".a:key.">=\e".a:key
+        " else
+            " exec "set <M-".a:key.">=\e]{0}".a:key."~"
+        " endif
+    " endfunc
+    " for i in range(10)
+        " call s:metacode(a:mode, nr2char(char2nr('0') + i))
+    " endfor
+    " for i in range(26)
+        " call s:metacode(a:mode, nr2char(char2nr('a') + i))
+        " call s:metacode(a:mode, nr2char(char2nr('A') + i))
+    " endfor
+    " if a:mode != 0
+        " for c in [',', '.', '/', ';', '[', ']', '{', '}']
+            " call s:metacode(a:mode, c)
+        " endfor
+        " for c in ['?', ':', '-', '_']
+            " call s:metacode(a:mode, c)
+        " endfor
+    " else
+        " for c in [',', '.', '/', ';', '{', '}']
+            " call s:metacode(a:mode, c)
+        " endfor
+        " for c in ['?', ':', '-', '_']
+            " call s:metacode(a:mode, c)
+        " endfor
+    " endif
+    " if &ttimeout == 0
+        " set ttimeout
+    " endif
+    " if &ttimeoutlen <= 0
+        " set ttimeoutlen=100
+    " endif
+" endfunc
 
-command! -nargs=0 -bang VimMetaInit call Terminal_MetaMode(<bang>0)
-:VimMetaInit
+" command! -nargs=0 -bang VimMetaInit call Terminal_MetaMode(<bang>0)
+" :VimMetaInit

@@ -44,9 +44,8 @@
     " forbid gutentags adding gtags databases
     " let g:gutentags_auto_add_gtags_cscope = 0
     " let g:gutentags_define_advanced_commands = 0
-
-
-
+    " theme
+    " Plug 'drewtempelmeyer/palenight.vim'
 
     " REPL
     if has('vim') && v:version >= 800
@@ -109,11 +108,11 @@
     " 代码自动补全
     " 迄今为止用到的最好的自动VIM自动补全插件
     " 重启 :YcmRestartServer
-    Plug 'Valloric/YouCompleteMe', {'on': []}
-    augroup load_ycm
-        autocmd!
-        autocmd InsertEnter * call plug#load('YouCompleteMe') | autocmd! load_ycm
-    augroup END
+    Plug 'Valloric/YouCompleteMe', 
+    " augroup load_ycm
+        " autocmd!
+        " autocmd InsertEnter * call plug#load('YouCompleteMe') | autocmd! load_ycm
+    " augroup END
     " 自动补全单引号，双引号等
     Plug 'Raimondi/delimitMate'
     " 自动补全函数参数
@@ -208,7 +207,7 @@
     " gitgutter
     " signify, 左侧显示git状态，以及可以对比文件改变
     Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
-    " Plug 'airblade/vim-gitgutter', {'on': 'GitGutterToggle'}
+    Plug 'airblade/vim-gitgutter', {'on': 'GitGutterToggle'}
 
     " gundo only support python2.x
     " edit history, 可以查看回到某个历史状态
@@ -217,8 +216,9 @@
     " view
     " airline
     " 状态栏增强展示
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'liuchengxu/eleline.vim'
+    " Plug 'vim-airline/vim-airline'
+    " Plug 'vim-airline/vim-airline-themes'
     " rainbow_parentheses
     " 括号显示增强
     Plug 'kien/rainbow_parentheses.vim'
@@ -550,7 +550,7 @@ let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 " delimitMate {{{
 " for python docstring ",优化输入
 au FileType python let b:delimitMate_nesting_quotes = ['"']
-au FileType python let delimitMate_matchpairs  = "[:],{:}"
+au FileType python let delimitMate_matchpairs  = "(:),[:],{:}"
 au FileType php let delimitMate_matchpairs = "(:),[:],{:}"
 " 关闭某些类型文件的自动补全
 "au FileType mail let b:delimitMate_autoclose = 0
@@ -709,10 +709,10 @@ nnoremap <m-d> :SignifyDiff<CR>
 " gitgutter {{{
 " 同git diff,实时展示文件中修改的行
 " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
-" let g:gitgutter_map_keys = 0
-" let g:gitgutter_enabled = 0
-" let g:gitgutter_highlight_lines = 1
-" nnoremap <leader>gs :GitGutterToggle<CR>
+let g:gitgutter_map_keys = 0
+let g:gitgutter_enabled = 0
+let g:gitgutter_highlight_lines = 1
+nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
 " gundo {{{

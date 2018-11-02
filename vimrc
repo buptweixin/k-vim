@@ -23,14 +23,19 @@
 "==========================================
 " tmux
 "==========================================
+if $TMUX != ''
+	set ttimeoutlen=20
+elseif &ttimeoutlen > 60 || &ttimeoutlen <= 0
+	set ttimeoutlen=60
+endif
 " if exists('$ITERM_PROFILE')
-  " if exists('$TMUX')
-    " let &amp;t_SI = "<Esc>[3 q"
-    " let &amp;t_EI = "<Esc>[0 q"
-  " else
-    " let &amp;t_SI = "<Esc>]50;CursorShape=1x7"
-    " let &amp;t_EI = "<Esc>]50;CursorShape=0x7"
-  " endif
+" if exists('$TMUX')
+" let &amp;t_SI = "<Esc>[3 q"
+" let &amp;t_EI = "<Esc>[0 q"
+" else
+" let &amp;t_SI = "<Esc>]50;CursorShape=1x7"
+" let &amp;t_EI = "<Esc>]50;CursorShape=0x7"
+" endif
 " end
 
 "==========================================
@@ -49,9 +54,9 @@ syntax on
 
 " install bundles
 if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
+	source ~/.vimrc.bundles
 elseif filereadable(expand("~/.config/nvim/vimrc.bundles")) " neovim
-  source ~/.config/nvim/vimrc.bundles
+	source ~/.config/nvim/vimrc.bundles
 endif
 
 " ensure ftdetect et al work by including this after the bundle stuff
@@ -73,13 +78,13 @@ autocmd BufLeave *.{c,cpp} mark C
 autocmd BufLeave *.h       mark H
 " 改变光标形状, 普通模式块光标，插入模式使用条状光标，替换模式使用下划线光标
 if empty($TMUX)
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-  let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+	let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 else
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-  let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+	let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 endif
 " 智能当前行高亮
 autocmd InsertLeave,WinEnter * set cursorline
@@ -116,14 +121,14 @@ set noswapfile
 " TODO: remove this, use gundo
 " create undo file
 " if has('persistent_undo')
-  " " How many undos
-  " set undolevels=1000
-  " " number of lines to save for undo
-  " set undoreload=10000
-  " " So is persistent undo ...
-  " "set undofile
-  " set noundofile
-  " " set undodir=/tmp/vimundo/
+" " How many undos
+" set undolevels=1000
+" " number of lines to save for undo
+" set undoreload=10000
+" " So is persistent undo ...
+" "set undofile
+" set noundofile
+" " set undodir=/tmp/vimundo/
 " endif
 
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
@@ -226,13 +231,13 @@ set foldlevel=99
 let g:FoldMethod = 0
 map <leader>zz :call ToggleFold()<cr>
 fun! ToggleFold()
-    if g:FoldMethod == 0
-        exe "normal! zM"
-        let g:FoldMethod = 1
-    else
-        exe "normal! zR"
-        let g:FoldMethod = 0
-    endif
+	if g:FoldMethod == 0
+		exe "normal! zM"
+		let g:FoldMethod = 1
+	else
+		exe "normal! zR"
+		let g:FoldMethod = 0
+	endif
 endfun
 
 " 缩进配置
@@ -273,21 +278,21 @@ au FocusGained * :set relativenumber
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber
 function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber number
-  else
-    set relativenumber
-  endif
+	if(&relativenumber == 1)
+		set norelativenumber number
+	else
+		set relativenumber
+	endif
 endfunc
 nnoremap <leader>n :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
 if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
+	" disable Background Color Erase (BCE) so that color schemes
+	" render properly when inside 256-color tmux and GNU screen.
+	" see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+	set t_ut=
 endif
 
 "==========================================
@@ -349,7 +354,7 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 "==========================================
@@ -380,14 +385,14 @@ noremap <F1> <Esc>"
 " F2 行号开关，用于鼠标复制代码用
 " 为方便复制，用<F2>开启/关闭行号显示:
 function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
-    set number!
-  else
-    set relativenumber!
-  endif
-  set number?
+	if(&relativenumber == &number)
+		set relativenumber! number!
+	elseif(&number)
+		set number!
+	else
+		set relativenumber!
+	endif
+	set number?
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
 " F3 显示可打印字符开关
@@ -401,9 +406,9 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
 " Automatically set paste mode in Vim when pasting in insert mode
 function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
+	set pastetoggle=<Esc>[201~
+	set paste
+	return ""
 endfunction
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
@@ -419,15 +424,15 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
-    if exists('t:zoomed') && t:zoomed
-        execute t:zoom_winrestcmd
-        let t:zoomed = 0
-    else
-        let t:zoom_winrestcmd = winrestcmd()
-        resize
-        vertical resize
-        let t:zoomed = 1
-    endif
+	if exists('t:zoomed') && t:zoomed
+		execute t:zoom_winrestcmd
+		let t:zoomed = 0
+	else
+		let t:zoom_winrestcmd = winrestcmd()
+		resize
+		vertical resize
+		let t:zoomed = 1
+	endif
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <Leader>z :ZoomToggle<CR>
@@ -451,7 +456,7 @@ cnoremap <C-e> <End>
 
 " 搜索相关
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+" map <space> /
 " 进入搜索Use sane regexes"
 nnoremap / /\v
 vnoremap / /\v
@@ -593,10 +598,10 @@ au BufWinEnter *.php set mps-=<:>
 
 " 保存python文件时删除多余空格
 fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
+	let l = line(".")
+	let c = col(".")
+	%s/\s\+$//e
+	call cursor(l, c)
 endfun
 autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
@@ -604,30 +609,30 @@ autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,pe
 " 定义函数AutoSetFileHead，自动插入文件头
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
-    endif
+	"如果文件类型为.sh文件
+	if &filetype == 'sh'
+		call setline(1, "\#!/bin/bash")
+	endif
 
-    "如果文件类型为python
-    if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call setline(2, "\# -*- coding: utf-8 -*-")
-    endif
+	"如果文件类型为python
+	if &filetype == 'python'
+		call setline(1, "\#!/usr/bin/env python3")
+		call setline(2, "\# -*- coding: utf-8 -*-")
+	endif
 
-    normal G
-    normal o
-    normal o
+	normal G
+	normal o
+	normal o
 endfunc
 
 
 " 设置可以高亮的关键字
 if has("autocmd")
-  " Highlight TODO, FIXME, NOTE, etc.
-  if v:version > 701
-    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
-    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
-  endif
+	" Highlight TODO, FIXME, NOTE, etc.
+	if v:version > 701
+		autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
+		autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+	endif
 endif
 
 "==========================================
@@ -645,32 +650,32 @@ set lazyredraw          " redraw only when we need to.
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=Monaco:h14
-    if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 12,Monospace\ 12
-    endif
-    set guioptions-=T
-    set guioptions+=e
-    set guioptions-=r
-    set guioptions-=L
-    set guitablabel=%M\ %t
-    set showtabline=1
-    set linespace=2
-    set noimd
-    set t_Co=256
+	set guifont=Monaco:h14
+	if has("gui_gtk2")   "GTK2
+		set guifont=Monaco\ 12,Monospace\ 12
+	endif
+	set guioptions-=T
+	set guioptions+=e
+	set guioptions-=r
+	set guioptions-=L
+	set guitablabel=%M\ %t
+	set showtabline=1
+	set linespace=2
+	set noimd
+	set t_Co=256
 endif
 
 
 " if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " endif
 
 "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
 "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
 " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 " if (has("termguicolors"))
-  " set termguicolors
+" set termguicolors
 " endif
 
 " theme主题
@@ -705,11 +710,11 @@ let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
 
 " 定制TMUX行为
 if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 " 定制n永远x向后搜索，N向前搜索
@@ -721,44 +726,44 @@ cnoremap <c-n> <down>
 cnoremap <c-p> <up>
 
 " function! Terminal_MetaMode(mode)
-    " if has('nvim') || has('gui_running')
-        " return
-    " endif
-    " function! s:metacode(mode, key)
-        " if a:mode == 0
-            " exec "set <M-".a:key.">=\e".a:key
-        " else
-            " exec "set <M-".a:key.">=\e]{0}".a:key."~"
-        " endif
-    " endfunc
-    " for i in range(10)
-        " call s:metacode(a:mode, nr2char(char2nr('0') + i))
-    " endfor
-    " for i in range(26)
-        " call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        " call s:metacode(a:mode, nr2char(char2nr('A') + i))
-    " endfor
-    " if a:mode != 0
-        " for c in [',', '.', '/', ';', '[', ']', '{', '}']
-            " call s:metacode(a:mode, c)
-        " endfor
-        " for c in ['?', ':', '-', '_']
-            " call s:metacode(a:mode, c)
-        " endfor
-    " else
-        " for c in [',', '.', '/', ';', '{', '}']
-            " call s:metacode(a:mode, c)
-        " endfor
-        " for c in ['?', ':', '-', '_']
-            " call s:metacode(a:mode, c)
-        " endfor
-    " endif
-    " if &ttimeout == 0
-        " set ttimeout
-    " endif
-    " if &ttimeoutlen <= 0
-        " set ttimeoutlen=100
-    " endif
+" if has('nvim') || has('gui_running')
+" return
+" endif
+" function! s:metacode(mode, key)
+" if a:mode == 0
+" exec "set <M-".a:key.">=\e".a:key
+" else
+" exec "set <M-".a:key.">=\e]{0}".a:key."~"
+" endif
+" endfunc
+" for i in range(10)
+" call s:metacode(a:mode, nr2char(char2nr('0') + i))
+" endfor
+" for i in range(26)
+" call s:metacode(a:mode, nr2char(char2nr('a') + i))
+" call s:metacode(a:mode, nr2char(char2nr('A') + i))
+" endfor
+" if a:mode != 0
+" for c in [',', '.', '/', ';', '[', ']', '{', '}']
+" call s:metacode(a:mode, c)
+" endfor
+" for c in ['?', ':', '-', '_']
+" call s:metacode(a:mode, c)
+" endfor
+" else
+" for c in [',', '.', '/', ';', '{', '}']
+" call s:metacode(a:mode, c)
+" endfor
+" for c in ['?', ':', '-', '_']
+" call s:metacode(a:mode, c)
+" endfor
+" endif
+" if &ttimeout == 0
+" set ttimeout
+" endif
+" if &ttimeoutlen <= 0
+" set ttimeoutlen=100
+" endif
 " endfunc
 
 " command! -nargs=0 -bang VimMetaInit call Terminal_MetaMode(<bang>0)

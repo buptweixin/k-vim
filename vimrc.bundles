@@ -29,6 +29,12 @@
     call plug#begin('~/.vim/bundle')
     " preview
     Plug 'skywind3000/vim-preview'
+    " On-demand lazy load
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    nnoremap <silent> <leader> :WhichKey ','<CR>
+    " Plug 'ashisha/image.vim'
+    " 更快的python换行
+    " Plug 'sillybun/autoformatpythonstatement', {'do': './install.sh'}
     " gtags
     " Plug 'ludovicchabant/vim-gutentags'
     " Plug 'skywind3000/gutentags_plus'
@@ -890,7 +896,20 @@ let g:asyncrun_bell = 1
 " <F9>编译
 nnoremap <silent> <F9> :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 " nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
-nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) python "$(VIM_FILEPATH)"<CR>
+" nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) python "$(VIM_FILEPATH)"<CR>
+nnoremap <F5> :call CompileAndRun()<CR>
+augroup MyGroup
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
+augroup END
+function! CompileAndRun()
+    exec "w"
+    if &filetype == 'cpp'
+        exec "AsyncRun! g++ -std=c++11 % -o %<"; "AsyncRun! time ./%<"
+    endif
+    if &filetype == 'py'
+        exec "AsyncRun! python3 $(VIM_FILEPATH)"
+    endif
+endfunction
 " nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr>
 " nnoremap <silent> <F6> :AsyncRun -cwd=<root> -raw make test <cr>
 " nnoremap <silent> <F4> :AsyncRun -cwd=<root> cmake . <cr>

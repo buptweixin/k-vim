@@ -85,9 +85,9 @@
     "       自动识别文件编码
     "     - FencView
     "       选择指定编码reload文件
-    Plug 'adah1972/fencview'
-    noremap <m-f> :FencAutoDetect<cr>
-    set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936
+    " Plug 'adah1972/fencview'
+    " noremap <m-f> :FencAutoDetect<cr>
+    " set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936
 
     if has('mac')
         " Dash.vim
@@ -188,7 +188,7 @@
     " <c-n> 搜索最近打开的文件
     " <m-p> 在当前文件的函数列表里搜索
     " <m-n>列出buffers 
-    Plug 'Yggdroot/LeaderF'
+    Plug 'Yggdroot/LeaderF', {'on': ['LeaderfFile', 'LeaderfMru', 'LeaderfFunction', 'LeaderfBuffer']}
     Plug 'rking/ag.vim'
     noremap <leader>f :Ag<space>--noaffinity<space>
     let g:ag_mapping_message=0
@@ -284,7 +284,7 @@
 
         " isort  https://github.com/timothycrosley/isort#readme + https://github.com/fisadev/vim-isort#installation
         " pip install isort
-        Plug 'fisadev/vim-isort'
+        Plug 'fisadev/vim-isort', {'on': 'Isort'}
         let g:ale_python_isort_executable = 'isort'
         let g:ale_python_isort_use_global = 1
         " Shift-V 上下选中, ,i 规范化

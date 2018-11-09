@@ -616,8 +616,15 @@ function! AutoSetFileHead()
 
 	"如果文件类型为python
 	if &filetype == 'python'
+        let tstamp = strftime('%Y-%m-%d %H:%M:%S')
 		call setline(1, "\#!/usr/bin/env python3")
 		call setline(2, "\# -*- coding: utf-8 -*-")
+		call setline(3, "'''")
+		call setline(4, "@Author: weixin")
+		call setline(5, "@Email: weixin@megvii.com")
+		call setline(6, "@Date: " . tstamp)
+		call setline(7, "@Desc: ")
+		call setline(8, "'''")
 	endif
 
 	normal G

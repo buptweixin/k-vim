@@ -30,8 +30,8 @@
     " preview
     Plug 'skywind3000/vim-preview'
     " On-demand lazy load
-    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-    nnoremap <silent> <leader> :WhichKey ','<CR>
+    " Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    " nnoremap <silent> <leader> :WhichKey ','<CR>
     " Plug 'ashisha/image.vim'
     " 更快的python换行
     " Plug 'sillybun/autoformatpythonstatement', {'do': './install.sh'}
@@ -200,7 +200,7 @@
     " t       在tab中打开(建议)
     " T - Lkie t but focus CtrlSF window instead of opened new tab.
     " q - Quit CtrlSF window.
-    Plug 'dyng/ctrlsf.vim'
+    " Plug 'dyng/ctrlsf.vim'
     " incsearch
     " Plug 'haya14busa/incsearch.vim'
     " map /  <Plug>(incsearch-forward)
@@ -233,9 +233,6 @@
     Plug 'altercation/vim-colors-solarized'
 
     " nav
-    " nerdtree nerdtreetabs
-    Plug 'scrooloose/nerdtree'
-    Plug 'jistr/vim-nerdtree-tabs' 
     " ctrlspace
     " Plug 'vim-ctrlspace/vim-ctrlspace', {'on': 'CtrlSpace'}
 
@@ -684,24 +681,24 @@ let g:Lf_RootMarkers = ['.git', '.hg', '.svn', '.project', '.root']
 
 
 " ctrlsf {{{
-nmap \ <Plug>CtrlSFCwordPath<CR>
+" nmap \ <Plug>CtrlSFCwordPath<CR>
 " let g:ctrlsf_position = 'below'
 " let g:ctrlsf_winsize = '30%'
-let g:ctrlsf_auto_close = 0
-let g:ctrlsf_confirm_save = 0
+" let g:ctrlsf_auto_close = 0
+" let g:ctrlsf_confirm_save = 0
 " Note: cannot use <CR> or <C-m> for open
 " Use : <sapce> or <tab>
-let g:ctrlsf_mapping = {
-            \ "open"  : "<Space>",
-            \ "openb" : "O",
-            \ "tab"   : "t",
-            \ "tabb"  : "T",
-            \ "prevw" : "p",
-            \ "quit"  : "q",
-            \ "next"  : "<C-J>",
-            \ "prev"  : "<C-K>",
-            \ "pquit" : "q",
-            \ }
+" let g:ctrlsf_mapping = {
+            " \ "open"  : "<Space>",
+            " \ "openb" : "O",
+            " \ "tab"   : "t",
+            " \ "tabb"  : "T",
+            " \ "prevw" : "p",
+            " \ "quit"  : "q",
+            " \ "next"  : "<C-J>",
+            " \ "prev"  : "<C-K>",
+            " \ "pquit" : "q",
+            " \ }
 " }}}
 
 " git.  git操作还是习惯命令行,vim里面处理简单diff编辑操作
@@ -789,29 +786,6 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 " }}}
 
-" ################### 快速导航 ###################
-
-" nerdtree nerdtreetabs {{{
-let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
-"close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-" s/v 分屏打开文件
-let g:NERDTreeMapOpenSplit = 's'
-let g:NERDTreeMapOpenVSplit = 'v'
-
-
-" nerdtreetabs
-" map <m-t> :NERDTreeToggle<CR>
-map <m-t> :NERDTreeTabsToggle<CR>
-" 关闭同步
-let g:nerdtree_tabs_synchronize_view=0
-let g:nerdtree_tabs_synchronize_focus=0
-" 是否自动开启nerdtree
-" thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
-let g:nerdtree_tabs_open_on_console_startup=0
-let g:nerdtree_tabs_open_on_gui_startup=0
-" }}}
 
 " ################### 语言相关 ###################
 

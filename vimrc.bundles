@@ -74,7 +74,7 @@
 
 
     "errormarker
-    Plug 'mh21/errormarker.vim'
+    " Plug 'mh21/errormarker.vim'
 
     Plug 'Shougo/echodoc.vim'
     let g:echodoc#enable_at_startup = 1 
@@ -99,7 +99,7 @@
     " asyncrun.vim
     " 在后台异步执行， 通过: `cw` 进入quickfix窗口查看结果
     " 异步git push：AsyncRun git push origin master异步编译：AsyncRun gcc % -o %<异步更新 tag：AsyncRun ctags -R --fields=+S .异步 grep：AsyncRun grep -R <cword> .
-    Plug 'skywind3000/asyncrun.vim'
+    Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 
     " 一键格式化代码
     Plug 'Chiel92/vim-autoformat'
@@ -176,7 +176,7 @@
     " quick selection and edit
     " expandregion
     " 选中区块
-    Plug 'terryma/vim-expand-region'
+    " Plug 'terryma/vim-expand-region'
     " 多光标选中编辑
     " multiplecursors
     Plug 'terryma/vim-multiple-cursors'
@@ -660,6 +660,9 @@ map <C-p> :LeaderfFile<CR>
 map <C-n> :LeaderfMru<CR>
 map <m-p> :LeaderfFunction<CR>
 map <m-n> :LeaderfBuffer<CR>
+
+" let g:Lf_CommandMap = {'<C-X>': ['<C-D>']}
+" let g:Lf_CommandMap = {'<C-]>': ['<C-D>']}
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
 let g:Lf_WorkingDirectoryMode = 'Ac'
